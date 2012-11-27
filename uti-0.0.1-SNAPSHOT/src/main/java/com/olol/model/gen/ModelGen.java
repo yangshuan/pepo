@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -45,68 +48,24 @@ public class ModelGen {
 		SAXReader saxReader = new SAXReader();
 		try {
 			saxReader.addHandler("/model/segment-logic", new SegLogicHandler(dir));
-			saxReader.addHandler("/model/segments", new SegmentsHandler());
+			saxReader.addHandler("/model/segments", new SegmentsHandler(dir));
 			saxReader.read(inputXml);
 
 		} catch (DocumentException e) {
 			System.err.println(e.getMessage());
 		}
 	}
-
-	private static class SegLogicHandler implements ElementHandler {
-		
-		String dir;
-		
-		
-
-		public SegLogicHandler(String dir) {
-			this.dir = dir;
-		}
-
-		public void onEnd(ElementPath arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void onStart(ElementPath path) {
-			// TODO Auto-generated method stub
-			Element elt = path.getCurrent();
-			System.out.println(dir + "/" +elt.attribute("sasfile").getValue());
-			SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
-			
-		}
-	}
 	
-	private static class SegmentsHandler implements ElementHandler {
 
-		public void onEnd(ElementPath path) {
-			path.removeHandler("Segment");
-		}
-
-		public void onStart(ElementPath path) {
-			// TODO Auto-generated method stub
-			Element elt = path.getCurrent();
-			path.addHandler("Segment", new SegmentHandler());
-		}
-	}
-	
-	private static class SegmentHandler implements ElementHandler {
-
-		public void onEnd(ElementPath path) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void onStart(ElementPath path) {
-			// TODO Auto-generated method stub
-			Element elt = path.getCurrent();
-			System.out.println(elt.attribute("sasfile"));
-		}
-	}
 
 	public static void main(String args[]) throws IOException {
 		ModelGen gen = new ModelGen(new ClassPathResource("session/sm_cfg.xml").getFile());
 		gen.setHandler(gen.getDocument());
+		StringTemplateGroup group = new StringTemplateGroup("group", gen.dir, DefaultTemplateLexer.class);
+		StringTemplate classnamest = group.getInstanceOf("ModelClass");
+		classnamest.setAttribute("classname", "SegLogic");
+		System.out.println(classnamest.toString());
+//		System.out.println("haha");
 		// InputStream input;
 		// try {
 		// File woeFile = new ClassPathResource("variables.woe").getFile();

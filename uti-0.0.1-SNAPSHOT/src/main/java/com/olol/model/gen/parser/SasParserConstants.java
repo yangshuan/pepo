@@ -39,47 +39,49 @@ public interface SasParserConstants {
   /** RegularExpression Id. */
   int THEN = 20;
   /** RegularExpression Id. */
-  int IN = 21;
+  int OR = 21;
   /** RegularExpression Id. */
-  int LABEL = 22;
+  int IN = 22;
   /** RegularExpression Id. */
-  int LCURLYBRACE = 23;
+  int LABEL = 23;
   /** RegularExpression Id. */
-  int RCURLYBRACE = 24;
+  int LCURLYBRACE = 24;
   /** RegularExpression Id. */
-  int LSQUAREBRACKET = 25;
+  int RCURLYBRACE = 25;
   /** RegularExpression Id. */
-  int RSQUAREBRACKET = 26;
+  int LSQUAREBRACKET = 26;
   /** RegularExpression Id. */
-  int LPARENTHESIS = 27;
+  int RSQUAREBRACKET = 27;
   /** RegularExpression Id. */
-  int RPARENTHESIS = 28;
+  int LPARENTHESIS = 28;
   /** RegularExpression Id. */
-  int PLUS = 29;
+  int RPARENTHESIS = 29;
   /** RegularExpression Id. */
-  int MINUS = 30;
+  int PLUS = 30;
   /** RegularExpression Id. */
-  int MULTIPLY = 31;
+  int MINUS = 31;
   /** RegularExpression Id. */
-  int DIVIDE = 32;
+  int MULTIPLY = 32;
   /** RegularExpression Id. */
-  int EQUAL = 33;
+  int DIVIDE = 33;
   /** RegularExpression Id. */
-  int NOTEQUAL = 34;
+  int EQUAL = 34;
   /** RegularExpression Id. */
-  int LESSTHAN = 35;
+  int NOTEQUAL = 35;
   /** RegularExpression Id. */
-  int GREATERTHAN = 36;
+  int LESSTHAN = 36;
   /** RegularExpression Id. */
-  int LESSTHANOREQUALTO = 37;
+  int GREATERTHAN = 37;
   /** RegularExpression Id. */
-  int GREATERTHANOREQUALTO = 38;
+  int LESSTHANOREQUALTO = 38;
   /** RegularExpression Id. */
-  int IDENTIFIER = 39;
+  int GREATERTHANOREQUALTO = 39;
   /** RegularExpression Id. */
-  int LETTER = 40;
+  int IDENTIFIER = 40;
   /** RegularExpression Id. */
-  int DIGIT = 41;
+  int LETTER = 41;
+  /** RegularExpression Id. */
+  int DIGIT = 42;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -107,6 +109,7 @@ public interface SasParserConstants {
     "\"if\"",
     "\"else\"",
     "\"then\"",
+    "\"or\"",
     "\"in\"",
     "\"label\"",
     "\"{\"",

@@ -1,10 +1,11 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
  * @author: fatu
- */options{  JDK_VERSION = "1.6";  LOOKAHEAD= 2;  static = true;}PARSER_BEGIN(SasParser)package com.olol.model.gen.parser;
+ */options{  JDK_VERSION = "1.6";  LOOKAHEAD= 2;  static = false;}PARSER_BEGIN(SasParser)package com.olol.model.gen.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,8 @@ import java.io.InputStream;
 import org.springframework.core.io.ClassPathResource;public class SasParser{
   public static int count = 0;
   public static List<String> variables = new ArrayList<String>();
+  public static HashMap<String, String> varMap = new HashMap<String, String >();
+  public static String name;
 
   static class IfStatement  {
     String varName;
@@ -52,6 +55,7 @@ import org.springframework.core.io.ClassPathResource;public class SasParser{
     public static void main(String args [])  {    InputStream input;    try    {
       File woeFile = new ClassPathResource("variables.woe").getFile();      input = new java.io.FileInputStream(woeFile);    }    catch (IOException e)    {      System.out.println("File not found.");      return;    }
         try    {      SasParser parser = new SasParser(input);      parser.translation_unit();    }    catch (ParseException e)    {      e.printStackTrace();    }  }}PARSER_END(SasParser)SKIP :{  " "| "\t"| "\n"| "\r"| < "//" (~[ "\n", "\r" ])*    (      "\n"    | "\r"    | "\r\n"    ) >| < "/*" (~[ "*" ])* "*"    (      "*"    | ~[ "*", "/" ] (~[ "*" ])* "*"    )*    "/" >}TOKEN : /* Numeric */{  < INTEGER_LITERAL :    < DECIMAL_LITERAL > ([ "l", "L" ])?  | < HEX_LITERAL > ([ "l", "L" ])?  | < OCTAL_LITERAL > ([ "l", "L" ])? >| < #DECIMAL_LITERAL : [ "1"-"9" ] ([ "0"-"9" ])* >| < #HEX_LITERAL : "0" [ "x", "X" ] ([ "0"-"9", "a"-"f", "A"-"F" ])+ >| < #OCTAL_LITERAL : "0" ([ "0"-"7" ])* >| < FLOATING_POINT_LITERAL :    ([ "0"-"9" ])+ "." ([ "0"-"9" ])* (< EXPONENT >)? ([ "f", "F", "d", "D" ])?  | "." ([ "0"-"9" ])+ (< EXPONENT >)? ([ "f", "F", "d", "D" ])?  | ([ "0"-"9" ])+ < EXPONENT > ([ "f", "F", "d", "D" ])?  | ([ "0"-"9" ])+ (< EXPONENT >)? [ "f", "F", "d", "D" ] >| < #EXPONENT : [ "e", "E" ] ([ "+", "-" ])? ([ "0"-"9" ])+ >| < CHARACTER_LITERAL :    "\'"    (      ~[ "\'", "\\", "\n", "\r" ]    | "\\"      (        [ "n", "t", "b", "r", "f", "\\", "\'", "\"" ]      | [ "0"-"7" ] ([ "0"-"7" ])?      | [ "0"-"3" ] [ "0"-"7" ] [ "0"-"7" ]      )    )*    "\'" >| < STRING_LITERAL :    "\""    (      ~[ "\"", "\\", "\n", "\r" ]    | "\\"      (        [ "n", "t", "b", "r", "f", "\\", "\'", "\"" ]      | [ "0"-"7" ] ([ "0"-"7" ])?      | [ "0"-"3" ] [ "0"-"7" ] [ "0"-"7" ]      |        (          [ "\n", "\r" ]        | "\r\n"        )      )    )*    "\"" >}TOKEN :{  < CONTINUE : "continue" >| < VOLATILE : "volatile" >| < REGISTER : "register" >| < IF : "if" >| < ELSE : "else" >| < THEN : "then" >
+| < OR : "or" >
 | < IN : "in" >
 | < LABEL : "label" >}TOKEN : /* OPERATORS */{
   < LCURLYBRACE: "{" >
@@ -72,7 +76,7 @@ import org.springframework.core.io.ClassPathResource;public class SasParser{
 void external_declaration() :
 {
   StringBuilder sb = new StringBuilder();
-  String str;
+  String str = null;
   IfStatement ifstatement = new IfStatement();}
 {  ifstatement = if_statement()
   {        sb.append(ifstatement.statement + "\n");
@@ -81,7 +85,8 @@ void external_declaration() :
      str = elseif_statement()
      {       sb.append(str + "\n");     }
   ) *
-  str = else_statement()
+  (       str = else_statement()
+ )?
   {
        sb.append(str);
   }
@@ -94,17 +99,19 @@ void external_declaration() :
     else
       System.out.println("else if(" + ifstatement.varName.toUpperCase() + ".getName().equals(varName)){");
     System.out.println(sb);
-    System.out.println("woeMap.put(\"" + ifstatement.woeName +"\", woeValue);");
+//    System.out.println("woeMap.put(\"" + ifstatement.woeName +"\", woeValue);");
     System.out.println("}");
-  }}
+  }
+  {
+    System.out.println("import static com.paypal.risk.idi.edge.detection.updater.session.lite.SessionModelLiteVariableRepository.*;");  }}
 
 IfStatement if_statement() :
 {
   Token flag = new Token();
-  Token t;
+  Token t = null;
   Token value;
   StringBuilder sb = new StringBuilder();
-  String str ;
+  String str;
   IfStatement ifstatement = new IfStatement();
 }
 {
@@ -114,22 +121,39 @@ IfStatement if_statement() :
   {	sb.append("if ");
 	ifstatement.varName = str;
   }
-  (
+  ( 
     "="  (
           t = <CHARACTER_LITERAL>
           { sb.append("(value.equals(\""+charTrim(t.toString()).trim()+"\"))"); }
          | t = "."
           { sb.append("(value == null)"); }
+         | t = < INTEGER_LITERAL >
          )
   | str = stringvalue_desc()
     { sb.append("(" + str +")");}
   )
+  (    < OR >
+    {
+      varMap.put(str, t.toString());    }
+    str = var_indentifier()
+    
+    "="
+    t = < INTEGER_LITERAL >
+    {      varMap.put(str, t.toString());
+    }
+  )*
+
+  
   "then" str = var_indentifier() "="
   {
     sb.append(" woeValue").append(" = ");
     ifstatement.woeName = str;  }
   ( flag = "-" )?
-  value = <FLOATING_POINT_LITERAL> ";"
+  (        value = <FLOATING_POINT_LITERAL> |
+    value = < INTEGER_LITERAL >
+   )
+    ";"
+  
   {
     if (flag.toString() != null && flag.toString().trim().equals("-"))    {            sb.append( flag.toString() + value.toString() );
     } else    {	  sb.append( value.toString() );  
