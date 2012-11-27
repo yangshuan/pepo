@@ -25,6 +25,31 @@ public class SasParser implements SasParserConstants {
     return str.substring(1, str.length() - 1);
   }
 
+  public static void parseSas(String path)
+  {
+    InputStream input;
+    try
+    {
+      File sasFile = new ClassPathResource(path).getFile();
+      input = new java.io.FileInputStream(sasFile);
+    }
+    catch (IOException e)
+    {
+      System.out.println("File not found.");
+      return;
+    }
+
+    try
+    {
+      SasParser parser = new SasParser(input);
+      parser.translation_unit();
+    }
+    catch (ParseException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
   public static void main(String args [])
   {
     InputStream input;
@@ -617,73 +642,6 @@ public class SasParser implements SasParserConstants {
     finally { jj_save(34, xla); }
   }
 
-  static private boolean jj_3R_6() {
-    if (jj_scan_token(ELSE)) return true;
-    if (jj_scan_token(IF)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_1() {
-    if (jj_3R_5()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_23() {
-    if (jj_scan_token(43)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_30() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_23()) {
-    jj_scanpos = xsp;
-    if (jj_3_24()) return true;
-    }
-    if (jj_scan_token(LESSTHAN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_19() {
-    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_18() {
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_17() {
-    if (jj_scan_token(MINUS)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_29() {
-    if (jj_3R_10()) return true;
-    if (jj_scan_token(GREATERTHAN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_28() {
-    if (jj_scan_token(42)) return true;
-    if (jj_scan_token(43)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_9() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_28()) {
-    jj_scanpos = xsp;
-    if (jj_3_29()) {
-    jj_scanpos = xsp;
-    if (jj_3_30()) return true;
-    }
-    }
-    return false;
-  }
-
   static private boolean jj_3_8() {
     if (jj_scan_token(MINUS)) return true;
     return false;
@@ -875,6 +833,73 @@ public class SasParser implements SasParserConstants {
     if (jj_3_21()) {
     jj_scanpos = xsp;
     if (jj_3_22()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_6() {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_scan_token(IF)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_1() {
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_23() {
+    if (jj_scan_token(43)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_30() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_23()) {
+    jj_scanpos = xsp;
+    if (jj_3_24()) return true;
+    }
+    if (jj_scan_token(LESSTHAN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_19() {
+    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_18() {
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_17() {
+    if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_29() {
+    if (jj_3R_10()) return true;
+    if (jj_scan_token(GREATERTHAN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_28() {
+    if (jj_scan_token(42)) return true;
+    if (jj_scan_token(43)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_9() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_28()) {
+    jj_scanpos = xsp;
+    if (jj_3_29()) {
+    jj_scanpos = xsp;
+    if (jj_3_30()) return true;
+    }
     }
     return false;
   }

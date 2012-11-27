@@ -23,6 +23,31 @@ import org.springframework.core.io.ClassPathResource;public class SasParser{
   {
     return str.substring(1, str.length() - 1);
   }
+
+  public static void parseSas(String path)
+  {
+    InputStream input;
+    try
+    {
+      File sasFile = new ClassPathResource(path).getFile();
+      input = new java.io.FileInputStream(sasFile);
+    }
+    catch (IOException e)
+    {
+      System.out.println("File not found.");
+      return;
+    }
+    
+    try
+    {
+      SasParser parser = new SasParser(input);
+      parser.translation_unit();
+    }
+    catch (ParseException e)
+    {
+      e.printStackTrace();
+    }
+  }
     public static void main(String args [])  {    InputStream input;    try    {
       File woeFile = new ClassPathResource("variables.woe").getFile();      input = new java.io.FileInputStream(woeFile);    }    catch (IOException e)    {      System.out.println("File not found.");      return;    }
         try    {      SasParser parser = new SasParser(input);      parser.translation_unit();    }    catch (ParseException e)    {      e.printStackTrace();    }  }}PARSER_END(SasParser)SKIP :{  " "| "\t"| "\n"| "\r"| < "//" (~[ "\n", "\r" ])*    (      "\n"    | "\r"    | "\r\n"    ) >| < "/*" (~[ "*" ])* "*"    (      "*"    | ~[ "*", "/" ] (~[ "*" ])* "*"    )*    "/" >}TOKEN : /* Numeric */{  < INTEGER_LITERAL :    < DECIMAL_LITERAL > ([ "l", "L" ])?  | < HEX_LITERAL > ([ "l", "L" ])?  | < OCTAL_LITERAL > ([ "l", "L" ])? >| < #DECIMAL_LITERAL : [ "1"-"9" ] ([ "0"-"9" ])* >| < #HEX_LITERAL : "0" [ "x", "X" ] ([ "0"-"9", "a"-"f", "A"-"F" ])+ >| < #OCTAL_LITERAL : "0" ([ "0"-"7" ])* >| < FLOATING_POINT_LITERAL :    ([ "0"-"9" ])+ "." ([ "0"-"9" ])* (< EXPONENT >)? ([ "f", "F", "d", "D" ])?  | "." ([ "0"-"9" ])+ (< EXPONENT >)? ([ "f", "F", "d", "D" ])?  | ([ "0"-"9" ])+ < EXPONENT > ([ "f", "F", "d", "D" ])?  | ([ "0"-"9" ])+ (< EXPONENT >)? [ "f", "F", "d", "D" ] >| < #EXPONENT : [ "e", "E" ] ([ "+", "-" ])? ([ "0"-"9" ])+ >| < CHARACTER_LITERAL :    "\'"    (      ~[ "\'", "\\", "\n", "\r" ]    | "\\"      (        [ "n", "t", "b", "r", "f", "\\", "\'", "\"" ]      | [ "0"-"7" ] ([ "0"-"7" ])?      | [ "0"-"3" ] [ "0"-"7" ] [ "0"-"7" ]      )    )*    "\'" >| < STRING_LITERAL :    "\""    (      ~[ "\"", "\\", "\n", "\r" ]    | "\\"      (        [ "n", "t", "b", "r", "f", "\\", "\'", "\"" ]      | [ "0"-"7" ] ([ "0"-"7" ])?      | [ "0"-"3" ] [ "0"-"7" ] [ "0"-"7" ]      |        (          [ "\n", "\r" ]        | "\r\n"        )      )    )*    "\"" >}TOKEN :{  < CONTINUE : "continue" >| < VOLATILE : "volatile" >| < REGISTER : "register" >| < IF : "if" >| < ELSE : "else" >| < THEN : "then" >

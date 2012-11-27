@@ -12,7 +12,6 @@ import org.springframework.core.io.ClassPathResource;
 public class SasParser implements SasParserConstants {
   public static int count = 0;
   public static List<String> variables = new ArrayList<String>();
-  private static String filepath;
 
   static class IfStatement
   {
@@ -26,12 +25,13 @@ public class SasParser implements SasParserConstants {
     return str.substring(1, str.length() - 1);
   }
 
-  public static String parse()
+  public static String parse(String filepath)
   {
     InputStream input = null;
     try
     {
-      File sasFile = new ClassPathResource(filepath).getFile();
+      //File sasFile = new ClassPathResource(filepath).getFile();
+      File sasFile = new File(filepath);
       input = new java.io.FileInputStream(sasFile);
     }
     catch (IOException e)

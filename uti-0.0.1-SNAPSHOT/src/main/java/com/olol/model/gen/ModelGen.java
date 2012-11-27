@@ -44,7 +44,7 @@ public class ModelGen {
 	public void setHandler(Document document) {
 		SAXReader saxReader = new SAXReader();
 		try {
-			saxReader.addHandler("/model/segment-logic", new SegLogicHandler());
+			saxReader.addHandler("/model/segment-logic", new SegLogicHandler(dir));
 			saxReader.addHandler("/model/segments", new SegmentsHandler());
 			saxReader.read(inputXml);
 
@@ -54,6 +54,14 @@ public class ModelGen {
 	}
 
 	private static class SegLogicHandler implements ElementHandler {
+		
+		String dir;
+		
+		
+
+		public SegLogicHandler(String dir) {
+			this.dir = dir;
+		}
 
 		public void onEnd(ElementPath arg0) {
 			// TODO Auto-generated method stub
@@ -63,8 +71,9 @@ public class ModelGen {
 		public void onStart(ElementPath path) {
 			// TODO Auto-generated method stub
 			Element elt = path.getCurrent();
-			SasParser.parse();
-			System.out.println(elt.attribute("sasfile"));
+			System.out.println(dir + "/" +elt.attribute("sasfile").getValue());
+			SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
+			
 		}
 	}
 	
