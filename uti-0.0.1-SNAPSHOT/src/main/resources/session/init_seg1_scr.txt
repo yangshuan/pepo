@@ -1,0 +1,13 @@
+intercept = 1;
+new_score = 
++   (8.28081368    *Intercept                                  )
+-   (0.81097483    *wvid_asp_spoof_txns_s1                     )
+-   (0.66459787    *wSNR1wRtDolDclTxn_s1                       )
+-   (0.67072359    *wip_asp_spoof_txns_s1                      )
+-   (0.94047141    *wlogin_VIDMatch_s1                         )
+-   (0.75361744    *wmax_cross20wRtDclAcc_s1                   )
+-   (1.07276365    *wradd_max_pmt_s_3_s1                       )
+-   (0.81960731    *wradd_timezone_3_2_s1                      )
+;
+
+align_new_score = int(846.32476716  + -57.71364319  * new_score);

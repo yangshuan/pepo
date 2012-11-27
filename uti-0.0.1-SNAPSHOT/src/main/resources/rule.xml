@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE digester-rules 
+  PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+    "file:///../digester/dtds/digester-rules.dtd">
+
+<digester-rules>
+	<pattern value="PMML">
+		<object-create-rule classname="com.olol.nn.PMML" />
+		<set-properties-rule />
+		<pattern value="DataDictionary">
+			<object-create-rule classname="com.olol.nn.DataDictionary" />
+			<set-next-rule methodname="setDataDictionary"
+				paramtype="com.olol.nn.DataDictionary" />
+			<set-properties-rule />
+			<pattern value="DataField">
+				<object-create-rule classname="com.olol.nn.DataField" />
+				<set-next-rule methodname="addDataField" paramtype="com.olol.nn.DataField" />
+				<set-properties-rule />
+			</pattern>
+		</pattern>
+		<pattern value="NeuralNetwork">
+			<object-create-rule classname="com.olol.nn.NeuralNetwork" />
+			<set-next-rule methodname="setNeuralNetwork"
+				paramtype="com.olol.nn.NeuralNetwork" />
+			<set-properties-rule />
+			<pattern value="NeuralLayer">
+				<object-create-rule classname="com.olol.nn.NeuralLayer" />
+				<set-next-rule methodname="addNeuralLayer" paramtype="com.olol.nn.NeuralLayer" />
+				<set-properties-rule />
+				<pattern value="Neuron">
+					<object-create-rule classname="com.olol.nn.Neuron" />
+					<set-next-rule methodname="addNeuron" paramtype="com.olol.nn.Neuron" />
+					<set-properties-rule />
+					<pattern value="Con">
+						<object-create-rule classname="com.olol.nn.Concon"/>
+						<set-next-rule methodname="addCon" paramtype="com.olol.nn.Concon"/>
+						<set-properties-rule />
+					</pattern>
+				</pattern>
+			</pattern>
+		</pattern>
+
+	</pattern>
+</digester-rules>
