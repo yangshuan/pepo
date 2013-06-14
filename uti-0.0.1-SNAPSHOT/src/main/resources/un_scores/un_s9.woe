@@ -1,0 +1,307 @@
+
+
+/* WOE recoding for CP4WRtDolBadTxn */
+if CP4WRtDolBadTxn = . then wCP4WRtDolBadTxn_s9 =  0.000000;
+else if ( -1e38 < CP4WRtDolBadTxn <= 0 ) then wCP4WRtDolBadTxn_s9 = -0.380787;
+else if ( 0 < CP4WRtDolBadTxn <= 0.0009 ) then wCP4WRtDolBadTxn_s9 = -0.657912;
+else if ( 0.0009 < CP4WRtDolBadTxn <= 0.0015 ) then wCP4WRtDolBadTxn_s9 = -0.557267;
+else if ( 0.0015 < CP4WRtDolBadTxn <= 0.0025 ) then wCP4WRtDolBadTxn_s9 = -0.400310;
+else if ( 0.0025 < CP4WRtDolBadTxn <= 0.0041 ) then wCP4WRtDolBadTxn_s9 = -0.257704;
+else if ( 0.0041 < CP4WRtDolBadTxn <= 0.0052 ) then wCP4WRtDolBadTxn_s9 = -0.132757;
+else if ( 0.0052 < CP4WRtDolBadTxn <= 0.0088 ) then wCP4WRtDolBadTxn_s9 = -0.032515;
+else if ( 0.0088 < CP4WRtDolBadTxn <= 0.0096 ) then wCP4WRtDolBadTxn_s9 =  0.070263;
+else if ( 0.0096 < CP4WRtDolBadTxn <= 0.0105 ) then wCP4WRtDolBadTxn_s9 =  0.249476;
+else if ( 0.0105 < CP4WRtDolBadTxn <= 0.0146 ) then wCP4WRtDolBadTxn_s9 =  0.360860;
+else if ( CP4WRtDolBadTxn > 0.0146 ) then wCP4WRtDolBadTxn_s9 =  1.215540;
+else wCP4WRtDolBadTxn_s9 = 0;
+
+
+/* WOE recoding for Decline_rate_ccbin */
+if Decline_rate_ccbin = . then wDecline_rate_ccbin_s9 = -0.150493;
+else if ( -1e38 < Decline_rate_ccbin <= 0.0240767349 ) then wDecline_rate_ccbin_s9 = -0.552464;
+else if ( 0.0240767349 < Decline_rate_ccbin <= 0.0315757204 ) then wDecline_rate_ccbin_s9 = -0.308678;
+else if ( 0.0315757204 < Decline_rate_ccbin <= 0.0561131564 ) then wDecline_rate_ccbin_s9 =  0.058305;
+else if ( 0.0561131564 < Decline_rate_ccbin <= 0.1238624874 ) then wDecline_rate_ccbin_s9 =  0.217928;
+else if ( 0.1238624874 < Decline_rate_ccbin <= 0.1715051302 ) then wDecline_rate_ccbin_s9 =  0.779478;
+else if ( 0.1715051302 < Decline_rate_ccbin <= 0.1781256192 ) then wDecline_rate_ccbin_s9 =  1.075911;
+else if ( Decline_rate_ccbin > 0.1781256192 ) then wDecline_rate_ccbin_s9 =  1.554979;
+else wDecline_rate_ccbin_s9 = 0;
+
+
+/* WOE recoding for IS_SCHEDULED_PAYMENT */
+if IS_SCHEDULED_PAYMENT = . then wIS_SCHEDULED_PAYMENT_s9 =  0.000000;
+else if ( -1e38 < IS_SCHEDULED_PAYMENT <= 0 ) then wIS_SCHEDULED_PAYMENT_s9 = -0.016179;
+else if ( IS_SCHEDULED_PAYMENT > 0 ) then wIS_SCHEDULED_PAYMENT_s9 =  1.851946;
+else wIS_SCHEDULED_PAYMENT_s9 = 0;
+
+
+/* WOE recoding for acct_login_cnt_dk_20 */
+if acct_login_cnt_dk_20 = . then wacct_login_cnt_dk_20_s9 =  0.000000;
+else if ( -1e38 < acct_login_cnt_dk_20 <= 0 ) then wacct_login_cnt_dk_20_s9 =  0.000000;
+else if ( 0 < acct_login_cnt_dk_20 <= 1.7415 ) then wacct_login_cnt_dk_20_s9 = -0.357539;
+else if ( 1.7415 < acct_login_cnt_dk_20 <= 2.9557 ) then wacct_login_cnt_dk_20_s9 = -0.183222;
+else if ( 2.9557 < acct_login_cnt_dk_20 <= 4.122 ) then wacct_login_cnt_dk_20_s9 = -0.182202;
+else if ( 4.122 < acct_login_cnt_dk_20 <= 4.9774 ) then wacct_login_cnt_dk_20_s9 = -0.009912;
+else if ( 4.9774 < acct_login_cnt_dk_20 <= 7.961 ) then wacct_login_cnt_dk_20_s9 =  0.471960;
+else if ( acct_login_cnt_dk_20 > 7.961 ) then wacct_login_cnt_dk_20_s9 =  1.739332;
+else wacct_login_cnt_dk_20_s9 = 0;
+
+
+/* WOE recoding for ach_outstd_age */
+if ach_outstd_age = . then wach_outstd_age_s9 =  0.000000;
+else if ( -1e38 < ach_outstd_age <= 21.782798834 ) then wach_outstd_age_s9 = -0.100746;
+else if ( 21.782798834 < ach_outstd_age <= 54.55 ) then wach_outstd_age_s9 =  0.370817;
+else if ( 54.55 < ach_outstd_age <= 88.656462585 ) then wach_outstd_age_s9 =  0.399841;
+else if ( ach_outstd_age > 88.656462585 ) then wach_outstd_age_s9 =  1.298089;
+else wach_outstd_age_s9 = 0;
+
+
+/* WOE recoding for added_address_lt_7 */
+if added_address_lt_7 = . then wadded_address_lt_7_s9 =  0.000000;
+else if ( -1e38 < added_address_lt_7 <= 0 ) then wadded_address_lt_7_s9 =  0.000000;
+else if ( 0 < added_address_lt_7 <= 1 ) then wadded_address_lt_7_s9 = -0.195024;
+else if ( 1 < added_address_lt_7 <= 2 ) then wadded_address_lt_7_s9 = -0.060113;
+else if ( added_address_lt_7 > 2 ) then wadded_address_lt_7_s9 =  1.264030;
+else wadded_address_lt_7_s9 = 0;
+
+
+/* WOE recoding for added_phone_lt_1 */
+if added_phone_lt_1 = . then wadded_phone_lt_1_s9 =  0.000000;
+else if ( -1e38 < added_phone_lt_1 <= 0 ) then wadded_phone_lt_1_s9 = -0.010538;
+else if ( added_phone_lt_1 > 0 ) then wadded_phone_lt_1_s9 =  1.023340;
+else wadded_phone_lt_1_s9 = 0;
+
+
+/* WOE recoding for days_snc_last_achtxn */
+if days_snc_last_achtxn = . then wdays_snc_last_achtxn_s9 =  0.000000;
+else if ( -1e38 < days_snc_last_achtxn <= 0 ) then wdays_snc_last_achtxn_s9 =  0.751945;
+else if ( 0 < days_snc_last_achtxn <= 200 ) then wdays_snc_last_achtxn_s9 = -0.740283;
+else if ( 200 < days_snc_last_achtxn <= 242 ) then wdays_snc_last_achtxn_s9 = -0.664710;
+else if ( 242 < days_snc_last_achtxn <= 287 ) then wdays_snc_last_achtxn_s9 = -0.586023;
+else if ( 287 < days_snc_last_achtxn <= 298 ) then wdays_snc_last_achtxn_s9 = -0.397050;
+else if ( 298 < days_snc_last_achtxn <= 353 ) then wdays_snc_last_achtxn_s9 = -0.191715;
+else if ( 353 < days_snc_last_achtxn <= 456 ) then wdays_snc_last_achtxn_s9 =  0.030099;
+else if ( 456 < days_snc_last_achtxn <= 663 ) then wdays_snc_last_achtxn_s9 =  0.201056;
+else if ( days_snc_last_achtxn > 663 ) then wdays_snc_last_achtxn_s9 =  0.560851;
+else wdays_snc_last_achtxn_s9 = 0;
+
+
+/* WOE recoding for dy30_sum_hcnt */
+if dy30_sum_hcnt = . then wdy30_sum_hcnt_s9 =  0.000000;
+else if ( -1e38 < dy30_sum_hcnt <= 0 ) then wdy30_sum_hcnt_s9 =  0.015727;
+else if ( 0 < dy30_sum_hcnt <= 1 ) then wdy30_sum_hcnt_s9 = -0.827818;
+else if ( 1 < dy30_sum_hcnt <= 2 ) then wdy30_sum_hcnt_s9 = -0.512078;
+else if ( 2 < dy30_sum_hcnt <= 5 ) then wdy30_sum_hcnt_s9 =  0.653816;
+else if ( dy30_sum_hcnt > 5 ) then wdy30_sum_hcnt_s9 =  1.701002;
+else wdy30_sum_hcnt_s9 = 0;
+
+
+/* WOE recoding for dy30_sum_hsum */
+if dy30_sum_hsum = . then wdy30_sum_hsum_s9 =  0.000000;
+else if ( -1e38 < dy30_sum_hsum <= 0 ) then wdy30_sum_hsum_s9 =  0.015727;
+else if ( 0 < dy30_sum_hsum <= 26739 ) then wdy30_sum_hsum_s9 = -0.308429;
+else if ( dy30_sum_hsum > 26739 ) then wdy30_sum_hsum_s9 =  0.906054;
+else wdy30_sum_hsum_s9 = 0;
+
+
+/* WOE recoding for email_MP_d_snc_conf */
+if email_MP_d_snc_conf = . then wemail_MP_d_snc_conf_s9 =  0.238653;
+else if ( -1e38 < email_MP_d_snc_conf <= 554 ) then wemail_MP_d_snc_conf_s9 =  0.144579;
+else if ( 554 < email_MP_d_snc_conf <= 2729 ) then wemail_MP_d_snc_conf_s9 = -0.323387;
+else if ( 2729 < email_MP_d_snc_conf <= 3748 ) then wemail_MP_d_snc_conf_s9 = -0.515863;
+else if ( email_MP_d_snc_conf > 3748 ) then wemail_MP_d_snc_conf_s9 = -0.712839;
+else wemail_MP_d_snc_conf_s9 = 0;
+
+
+/* WOE recoding for first_ach_txn_dof */
+if first_ach_txn_dof = . then wfirst_ach_txn_dof_s9 =  0.000000;
+else if ( -1e38 < first_ach_txn_dof <= -1 ) then wfirst_ach_txn_dof_s9 =  0.700205;
+else if ( -1 < first_ach_txn_dof <= 5 ) then wfirst_ach_txn_dof_s9 =  1.086276;
+else if ( first_ach_txn_dof > 5 ) then wfirst_ach_txn_dof_s9 = -0.129707;
+else wfirst_ach_txn_dof_s9 = 0;
+
+
+/* WOE recoding for ip_avg_dk_160 */
+if ip_avg_dk_160 = . then wip_avg_dk_160_s9 =  0.000000;
+else if ( -1e38 < ip_avg_dk_160 <= -1 ) then wip_avg_dk_160_s9 =  0.108314;
+else if ( -1 < ip_avg_dk_160 <= 228.5249 ) then wip_avg_dk_160_s9 =  0.543604;
+else if ( 228.5249 < ip_avg_dk_160 <= 418.5122 ) then wip_avg_dk_160_s9 =  0.299840;
+else if ( 418.5122 < ip_avg_dk_160 <= 1559.7302 ) then wip_avg_dk_160_s9 =  0.296474;
+else if ( 1559.7302 < ip_avg_dk_160 <= 7294.4709 ) then wip_avg_dk_160_s9 = -0.112556;
+else if ( ip_avg_dk_160 > 7294.4709 ) then wip_avg_dk_160_s9 = -0.242656;
+else wip_avg_dk_160_s9 = 0;
+
+
+/* WOE recoding for ip_ratio_max_dk_40 */
+if ip_ratio_max_dk_40 = . then wip_ratio_max_dk_40_s9 =  0.000000;
+else if ( -1e38 < ip_ratio_max_dk_40 <= -1 ) then wip_ratio_max_dk_40_s9 =  -0.080654;
+else if ( -1 < ip_ratio_max_dk_40 <= 0.0179 ) then wip_ratio_max_dk_40_s9 =  0.621656;
+else if ( 0.0179 < ip_ratio_max_dk_40 <= 1.0164 ) then wip_ratio_max_dk_40_s9 =  0.212426;
+else if ( ip_ratio_max_dk_40 > 1.0164 ) then wip_ratio_max_dk_40_s9 = -0.252147;
+else wip_ratio_max_dk_40_s9 = 0;
+
+
+/* WOE recoding for is_MERCHANT_PULL */
+if is_MERCHANT_PULL = . then wis_MERCHANT_PULL_s9 =  0.000000;
+else if ( -1e38 < is_MERCHANT_PULL <= 0 ) then wis_MERCHANT_PULL_s9 = -0.175515;
+else if ( is_MERCHANT_PULL > 0 ) then wis_MERCHANT_PULL_s9 =  1.797855;
+else wis_MERCHANT_PULL_s9 = 0;
+
+
+/* WOE recoding for max_ach_tof */
+if max_ach_tof = . then wmax_ach_tof_s9 =  0.000000;
+else if ( -1e38 < max_ach_tof <= -1 ) then wmax_ach_tof_s9 =  0.000000;
+else if ( -1 < max_ach_tof <= 111289735 ) then wmax_ach_tof_s9 =  0.126687;
+else if ( 111289735 < max_ach_tof <= 122283108 ) then wmax_ach_tof_s9 = -0.239248;
+else if ( 122283108 < max_ach_tof <= 135951090 ) then wmax_ach_tof_s9 = -0.343670;
+else if ( 135951090 < max_ach_tof <= 166206873 ) then wmax_ach_tof_s9 = -0.383663;
+else if ( max_ach_tof > 166206873 ) then wmax_ach_tof_s9 = -0.493843;
+else wmax_ach_tof_s9 = 0;
+
+
+/* WOE recoding for min_to_max_ach_tof */
+if min_to_max_ach_tof = . then wmin_to_max_ach_tof_s9 =  0.000000;
+else if ( -1e38 < min_to_max_ach_tof <= -1 ) then wmin_to_max_ach_tof_s9 =  3.053525;
+else if ( -1 < min_to_max_ach_tof <= 0.9999996842 ) then wmin_to_max_ach_tof_s9 = 0.297256;
+else if ( min_to_max_ach_tof > 0.9999996842 ) then wmin_to_max_ach_tof_s9 = -0.191514;
+else wmin_to_max_ach_tof_s9 = 0;
+
+
+/* WOE recoding for n_bdrt_Veri_txn */
+if n_bdrt_Veri_txn = . then wn_bdrt_Veri_txn_s9 =  0.000000;
+else if ( -1e38 < n_bdrt_Veri_txn <= 0 ) then wn_bdrt_Veri_txn_s9 = -0.300567;
+else if ( 0 < n_bdrt_Veri_txn <= 0.00016 ) then wn_bdrt_Veri_txn_s9 = -1.112946;
+else if ( 0.00016 < n_bdrt_Veri_txn <= 0.00047 ) then wn_bdrt_Veri_txn_s9 = -0.616553;
+else if ( 0.00047 < n_bdrt_Veri_txn <= 0.00056 ) then wn_bdrt_Veri_txn_s9 = -0.406394;
+else if ( 0.00056 < n_bdrt_Veri_txn <= 0.00313 ) then wn_bdrt_Veri_txn_s9 =  0.039270;
+else if ( 0.00313 < n_bdrt_Veri_txn <= 0.00847 ) then wn_bdrt_Veri_txn_s9 =  0.249919;
+else if ( 0.00847 < n_bdrt_Veri_txn <= 0.00929 ) then wn_bdrt_Veri_txn_s9 =  0.912429;
+else if ( 0.00929 < n_bdrt_Veri_txn <= 0.0102 ) then wn_bdrt_Veri_txn_s9 =  0.914272;
+else if ( n_bdrt_Veri_txn > 0.0102 ) then wn_bdrt_Veri_txn_s9 =  1.190124;
+else wn_bdrt_Veri_txn_s9 = 0;
+
+
+/* WOE recoding for n_ebay_lnkd_360all */
+if n_ebay_lnkd_360all = . then wn_ebay_lnkd_360all_s9 =  0.000000;
+else if ( -1e38 < n_ebay_lnkd_360all <= 0 ) then wn_ebay_lnkd_360all_s9 =  0.408544;
+else if ( 0 < n_ebay_lnkd_360all <= 1 ) then wn_ebay_lnkd_360all_s9 = -0.345088;
+else if ( 1 < n_ebay_lnkd_360all <= 2 ) then wn_ebay_lnkd_360all_s9 =  0.008706;
+else if ( n_ebay_lnkd_360all > 2 ) then wn_ebay_lnkd_360all_s9 =  0.741085;
+else wn_ebay_lnkd_360all_s9 = 0;
+
+
+/* WOE recoding for outamt_to_max_cleard */
+if outamt_to_max_cleard = . then woutamt_to_max_cleard_s9 =  0.000000;
+else if ( -1e38 < outamt_to_max_cleard <= 0.6876227898 ) then woutamt_to_max_cleard_s9 = -0.236520;
+else if ( 0.6876227898 < outamt_to_max_cleard <= 1.7509677419 ) then woutamt_to_max_cleard_s9 = -0.234248;
+else if ( 1.7509677419 < outamt_to_max_cleard <= 4.529219006 ) then woutamt_to_max_cleard_s9 =  0.111409;
+else if ( 4.529219006 < outamt_to_max_cleard <= 6.1344922232 ) then woutamt_to_max_cleard_s9 =  0.601112;
+else if ( 6.1344922232 < outamt_to_max_cleard <= 20.908424908 ) then woutamt_to_max_cleard_s9 =  1.339627;
+else if ( outamt_to_max_cleard > 20.908424908 ) then woutamt_to_max_cleard_s9 =  1.560475;
+else woutamt_to_max_cleard_s9 = 0;
+
+
+/* WOE recoding for r_ratio_max_dk_320 */
+if r_ratio_max_dk_320 = . then wr_ratio_max_dk_320_s9 =  0;
+else if ( -1e38 < r_ratio_max_dk_320 <= -2 ) then wr_ratio_max_dk_320_s9 =  0.000000;
+else if ( -2 < r_ratio_max_dk_320 <= 0.6538 ) then wr_ratio_max_dk_320_s9 = -0.234017;
+else if ( r_ratio_max_dk_320 > 0.6538 ) then wr_ratio_max_dk_320_s9 =  0.241947;
+else wr_ratio_max_dk_320_s9 = 0;
+
+
+/* WOE recoding for ratio_max */
+if ratio_max = . then wratio_max_s9 =  0.000000;
+else if ( -1e38 < ratio_max <= -1 ) then wratio_max_s9 =  0.040027;
+else if ( -1 < ratio_max <= 0.4818518519 ) then wratio_max_s9 = -0.070323;
+else if ( 0.4818518519 < ratio_max <= 0.8862559242 ) then wratio_max_s9 =  0.197841;
+else if ( ratio_max > 0.8862559242 ) then wratio_max_s9 =  1.257987;
+else wratio_max_s9 = 0;
+
+
+/* WOE recoding for s_avg_dk_320 */
+if s_avg_dk_320 = . then ws_avg_dk_320_s9 =  0.000000;
+else if ( -1e38 < s_avg_dk_320 <= -1 ) then ws_avg_dk_320_s9 =  0.000000;
+else if ( -1 < s_avg_dk_320 <= 265.5043 ) then ws_avg_dk_320_s9 =  0.540207;
+else if ( 265.5043 < s_avg_dk_320 <= 1544 ) then ws_avg_dk_320_s9 =  0.434859;
+else if ( 1544 < s_avg_dk_320 <= 4777 ) then ws_avg_dk_320_s9 = -0.097301;
+else if ( 4777 < s_avg_dk_320 <= 16890.389 ) then ws_avg_dk_320_s9 = -0.241582;
+else if ( 16890.389 < s_avg_dk_320 <= 37293.7367 ) then ws_avg_dk_320_s9 = -0.374052;
+else if ( s_avg_dk_320 > 37293.7367 ) then ws_avg_dk_320_s9 = -0.517779;
+else ws_avg_dk_320_s9 = 0;
+
+
+/* WOE recoding for s_c_address_match */
+if s_c_address_match = . then ws_c_address_match_s9 =  0.000000;
+else if ( -1e38 < s_c_address_match <= 0 ) then ws_c_address_match_s9 = -0.009969;
+else if ( s_c_address_match > 0 ) then ws_c_address_match_s9 =  1.929545;
+else ws_c_address_match_s9 = 0;
+
+
+/* WOE recoding for s_ms_cnt_dk_40 */
+if s_ms_cnt_dk_40 = . then ws_ms_cnt_dk_40_s9 =  0.000000;
+else if ( -1e38 < s_ms_cnt_dk_40 <= 0 ) then ws_ms_cnt_dk_40_s9 = -0.226191;
+else if ( 0 < s_ms_cnt_dk_40 <= 0.1529 ) then ws_ms_cnt_dk_40_s9 = -0.484337;
+else if ( 0.1529 < s_ms_cnt_dk_40 <= 0.5589 ) then ws_ms_cnt_dk_40_s9 = -0.199902;
+else if ( 0.5589 < s_ms_cnt_dk_40 <= 0.9966 ) then ws_ms_cnt_dk_40_s9 =  0.644887;
+else if ( 0.9966 < s_ms_cnt_dk_40 <= 2.5591 ) then ws_ms_cnt_dk_40_s9 =  0.922556;
+else if ( s_ms_cnt_dk_40 > 2.5591 ) then ws_ms_cnt_dk_40_s9 =  2.974655;
+else ws_ms_cnt_dk_40_s9 = 0;
+
+
+/* WOE recoding for s_rtrn_decay_5d_cnt */
+if s_rtrn_decay_5d_cnt = . then ws_rtrn_decay_5d_cnt_s9 =  0.000000;
+else if ( -1e38 < s_rtrn_decay_5d_cnt <= 0 ) then ws_rtrn_decay_5d_cnt_s9 = -0.070757;
+else if ( s_rtrn_decay_5d_cnt > 0 ) then ws_rtrn_decay_5d_cnt_s9 =  0.980681;
+else ws_rtrn_decay_5d_cnt_s9 = 0;
+
+
+/* WOE recoding for s_trans_ip2_tof_t_v2 */
+if s_trans_ip2_tof_t_v2 = . then ws_trans_ip2_tof_t_v2_s9 =  0.000000;
+else if ( -1e38 < s_trans_ip2_tof_t_v2 <= 14033163 ) then ws_trans_ip2_tof_t_v2_s9 =  0.187222;
+else if ( 14033163 < s_trans_ip2_tof_t_v2 <= 99808335 ) then ws_trans_ip2_tof_t_v2_s9 = -0.104975;
+else if ( 99808335 < s_trans_ip2_tof_t_v2 <= 121649046 ) then ws_trans_ip2_tof_t_v2_s9 = -0.460150;
+else if ( s_trans_ip2_tof_t_v2 > 121649046 ) then ws_trans_ip2_tof_t_v2_s9 = -0.533804;
+else ws_trans_ip2_tof_t_v2_s9 = 0;
+
+
+/* WOE recoding for s_v_tx_ratio_num */
+if s_v_tx_ratio_num = . then ws_v_tx_ratio_num_s9 =  0.000000;
+else if ( -1e38 < s_v_tx_ratio_num <= 0.6373626374 ) then ws_v_tx_ratio_num_s9 =  1.751520;
+else if ( 0.6373626374 < s_v_tx_ratio_num <= 0.928057554 ) then ws_v_tx_ratio_num_s9 =  1.057802;
+else if ( 0.928057554 < s_v_tx_ratio_num <= 0.9452054795 ) then ws_v_tx_ratio_num_s9 =  0.420252;
+else if ( 0.9452054795 < s_v_tx_ratio_num <= 0.9803278689 ) then ws_v_tx_ratio_num_s9 =  0.027770;
+else if ( 0.9803278689 < s_v_tx_ratio_num <= 0.9980276134 ) then ws_v_tx_ratio_num_s9 = -0.064591;
+else if ( s_v_tx_ratio_num > 0.9980276134 ) then ws_v_tx_ratio_num_s9 = -0.146807;
+else ws_v_tx_ratio_num_s9 = 0;
+
+
+/* WOE recoding for v36_diff_vid_3d */
+if v36_diff_vid_3d = . then wv36_diff_vid_3d_s9 =  0.969509;
+else if ( -1e38 < v36_diff_vid_3d <= 0 ) then wv36_diff_vid_3d_s9 =  0.969509;
+else if ( 0 < v36_diff_vid_3d <= 2 ) then wv36_diff_vid_3d_s9 = -0.301764;
+else if ( v36_diff_vid_3d > 2 ) then wv36_diff_vid_3d_s9 =  0.051201;
+else wv36_diff_vid_3d_s9 = 0;
+
+
+/* WOE recoding for v3_account_age_sm */
+if v3_account_age_sm = . then wv3_account_age_sm_s9 =  0.000000;
+else if ( -1e38 < v3_account_age_sm <= 0.0001736111 ) then wv3_account_age_sm_s9 =  0.245079;
+else if ( 0.0001736111 < v3_account_age_sm <= 362.98430556 ) then wv3_account_age_sm_s9 =  0.037531;
+else if ( 362.98430556 < v3_account_age_sm <= 404.43684028 ) then wv3_account_age_sm_s9 = -0.237477;
+else if ( 404.43684028 < v3_account_age_sm <= 1083.1764236 ) then wv3_account_age_sm_s9 = -0.250919;
+else if ( v3_account_age_sm > 1083.1764236 ) then wv3_account_age_sm_s9 = -0.598160;
+else wv3_account_age_sm_s9 = 0;
+
+
+/* WOE recoding for wach_n_inactive */
+if wach_n_inactive = . then wwach_n_inactive_s9 =  0.000000;
+else if ( -1e38 < wach_n_inactive <= 0 ) then wwach_n_inactive_s9 = -0.306545;
+else if ( wach_n_inactive > 0 ) then wwach_n_inactive_s9 =  1.011643;
+else wwach_n_inactive_s9 = 0;
+
+
+/* WOE recoding for v21_e_dom_score_worst */
+if v21_e_dom_score_worst = ' ' then wv21_e_dom_score_worst_s9 = 0;
+else if v21_e_dom_score_worst in ( 'GOOD' ) then wv21_e_dom_score_worst_s9 = -0.749339;
+else if v21_e_dom_score_worst in ( 'UNKNOWN' ) then wv21_e_dom_score_worst_s9 = -0.170357;
+else wv21_e_dom_score_worst_s9 = 0;

@@ -1,0 +1,27 @@
+
+
+SCOR = 
++   (7.18195188    *Intercept                                  )
+-   (0.63464488    *wMOA_V_MOALife_s16                         )
+-   (0.71331783    *ws_v_tx_ratio_num_s16                      )
+-   (0.53689047    *webay_sinc_UPI_360all_s16                  )
+-   (0.34558840    *wacct_login_cnt_dk_80_s16                  )
+-   (0.54279546    *wrt_num_rate_s16                           )
+-   (0.97444844    *wemail_numofvowely_s16                     )
+-   (0.52277555    *wcp_ratio_1w_appr_dol_s16                  )
+-   (0.71234290    *wnach_last_return_age_s16                  )
+-   (0.66095900    *wv36_login_exces_1h_s16                    )
+-   (1.37230853    *wprtlamt_to_max_sent_30_s16                )
+-   (1.03978913    *wp90_dys_return_s16                        )
+-   (0.60008646    *wemail_MP_GMB_1Y_s16                       )
+-   (0.69003308    *wn_bdrt_txn_s16                            )
+-   (0.33072323    *wv36_cc_bin_indc_s16                       )
+-   (0.54267011    *wPC_STUDENT_CCBIN_s16                      )
+-   (0.29844304    *wv2_beacon_lat_numeric_s16                 )
+-   (1.39221109    *wbilling_shipping_tch_47D1_s16             )
+-   (1.00513129    *wip_amt_dk_160_s16                         )
+-   (0.67085666    *wip_ratio_20w_uaa_dol_s16                  )
+-   (0.08274011    *wwach_n_savings_s16                        )
+-   (0.47489834    *ws_cc_s_amt_dk_80_s16                      )
+    ;
+ARM2012_UN_aligned_score = int( 846.27275648 + ( -57.70675392 )*(SCOR));

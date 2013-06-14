@@ -1,0 +1,33 @@
+
+
+SCOR = 
++   (3.37413035    *Intercept                                  )
+-   (0.73490504    *wp90_dys_return_s8                         )
+-   (0.43787878    *ws_ms_amt_dk_40_s8                         )
+-   (0.66075441    *wfirst_ach_txn_dof_s8                      )
+-   (0.53897913    *wv36_soft_activity_d_s8                    )
+-   (0.38091433    *wnum_logins_7_days_s8                      )
+-   (0.38870069    *wv31_ip_hopping_strict_s8                  )
+-   (0.64414234    *wrt_amt_rate_s8                            )
+-   (0.63368480    *wemail_MP_UPIA_180d_s8                     )
+-   (0.65562772    *wDecline_rate_ccbin_s8                     )
+-   (0.59057753    *wncc_failed_amt_ratio_s8                   )
+-   (0.46535642    *ws_mp_amt_dk_40_s8                         )
+-   (0.50068203    *wach_outstd_age_s8                         )
+-   (0.69999761    *wcp_ratio_4w_appr_dol_s8                   )
+-   (0.77707044    *wn_rt_dcl_14dys_s8                         )
+-   (0.65013190    *wemail_MP_sinc_UPI_s8                      )
+-   (0.59119440    *wv21_e_dom_score_worst_s8                  )
+-   (1.36747467    *wt_bank_confirm_dof_s8                     )
+-   (0.97435249    *wn_bdrt_bp_txn_s8                          )
+-   (0.62236809    *wemail_percofletter_s8                     )
+-   (0.63694551    *wtop_bin_cnt_pct_s8                        )
+-   (0.54062973    *wv2_e_un_indicative_s8                     )
+-   (0.56507258    *wip_ratio_avg_dk_320_s8                    )
+-   (0.83510404    *ws_c_address_match_s8                      )
+-   (1.31500799    *wrcvr_cc_d_cnt_dk_40_s8                    )
+-   (1.10592607    *wis_online_s8                              )
+-   (1.00579722    *wIS_SCHEDULED_PAYMENT_s8                   )
+-   (1.14452089    *wprimaryach_verify_saving_s8               )
+    ;
+fp_aliged_score = int( 849.52014462 + ( -59.0176872 )*(SCOR));

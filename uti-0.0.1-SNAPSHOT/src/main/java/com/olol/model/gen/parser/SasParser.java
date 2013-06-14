@@ -11,10 +11,15 @@ import java.io.InputStream;
 import org.springframework.core.io.ClassPathResource;
 
 public class SasParser implements SasParserConstants {
-  public static int count = 0;
+  public int count = 0;
   public static List<String> variables = new ArrayList<String>();
-  public static HashMap<String, String> varMap = new HashMap<String, String >();
+  public HashMap<String, String> varMap = new HashMap<String, String>();
+  public HashMap<String, String> woeMap = new HashMap<String, String>();
   public static String name;
+  public StringBuilder coeffmapsb = new StringBuilder();
+  public StringBuilder varaddsb = new StringBuilder();
+  public static String coeff1 = "";
+  public static String coeff2 = "";
 
   static class IfStatement
   {
@@ -28,8 +33,9 @@ public class SasParser implements SasParserConstants {
     return str.substring(1, str.length() - 1);
   }
 
-  public static String parse(String filepath)
+  public HashMap<String, String> parse(String filepath)
   {
+    HashMap<String, String> varMap = new HashMap<String, String>();
     InputStream input = null;
     try
     {
@@ -51,32 +57,13 @@ public class SasParser implements SasParserConstants {
     {
       e.printStackTrace();
     }
-    return null;
+    count = 0;
+    return varMap;
   }
 
-  public static void main(String args [])
+  public void setWoeMap(HashMap<String, String> woeMap)
   {
-    InputStream input;
-    try
-    {
-      File woeFile = new ClassPathResource("variables.woe").getFile();
-      input = new java.io.FileInputStream(woeFile);
-    }
-    catch (IOException e)
-    {
-      System.out.println("File not found.");
-      return;
-    }
-
-    try
-    {
-      SasParser parser = new SasParser(input);
-      parser.translation_unit();
-    }
-    catch (ParseException e)
-    {
-      e.printStackTrace();
-    }
+        this.woeMap = woeMap;
   }
 
   final public void translation_unit() throws ParseException {
@@ -96,43 +83,49 @@ public class SasParser implements SasParserConstants {
   StringBuilder sb = new StringBuilder();
   String str = null;
   IfStatement ifstatement = new IfStatement();
-    ifstatement = if_statement();
+    if (jj_2_5(3)) {
+      ifstatement = if_statement();
     sb.append(ifstatement.statement + "\u005cn");
-    label_2:
-    while (true) {
-      if (jj_2_2(2)) {
-        ;
-      } else {
-        break label_2;
-      }
-      str = elseif_statement();
+      label_2:
+      while (true) {
+        if (jj_2_2(3)) {
+          ;
+        } else {
+          break label_2;
+        }
+        str = elseif_statement();
        sb.append(str + "\u005cn");
-    }
-    if (jj_2_3(2)) {
-      str = else_statement();
-    } else {
-      ;
-    }
-       sb.append(str);
-    label_3:
-    while (true) {
-      if (jj_2_4(2)) {
-        ;
-      } else {
-        break label_3;
       }
-      label_statement();
+      if (jj_2_3(3)) {
+        str = else_statement();
+      } else {
+        ;
+      }
+       sb.append(str);
+      label_3:
+      while (true) {
+        if (jj_2_4(3)) {
+          ;
+        } else {
+          break label_3;
+        }
+        label_statement();
+      }
+    } else if (jj_2_6(3)) {
+      scorecard();
+    } else {
+      jj_consume_token(-1);
+      throw new ParseException();
     }
     count++;
-    variables.add(ifstatement.varName.toUpperCase());
-    if (count ==1)
-      System.out.println("if(" + ifstatement.varName.toUpperCase() + ".getName().equals(varName)){");
+    variables.add(ifstatement.varName);
+    if (count == 1)
+      varaddsb.append("if(" + ifstatement.varName + ".getName().equals(varName)){");
     else
-      System.out.println("else if(" + ifstatement.varName.toUpperCase() + ".getName().equals(varName)){");
-    System.out.println(sb);
-//    System.out.println("woeMap.put(\"" + ifstatement.woeName +"\", woeValue);");
-    System.out.println("}");
-    System.out.println("import static com.paypal.risk.idi.edge.detection.updater.session.lite.SessionModelLiteVariableRepository.*;");
+      varaddsb.append("else if(" + ifstatement.varName + ".getName().equals(varName)){");
+    varaddsb.append(sb);
+
+    varaddsb.append("}");
   }
 
   final public IfStatement if_statement() throws ParseException {
@@ -140,27 +133,33 @@ public class SasParser implements SasParserConstants {
   Token t = null;
   Token value;
   StringBuilder sb = new StringBuilder();
+  StringBuilder getsegmentvarsb = new StringBuilder();
+  StringBuilder getsegmentlogicsb = new StringBuilder();
+  String varname;
   String str;
   IfStatement ifstatement = new IfStatement();
     jj_consume_token(IF);
     str = var_indentifier();
+    varname = str +"_result";
         sb.append("if ");
         ifstatement.varName = str;
-    if (jj_2_8(2)) {
-      jj_consume_token(43);
-      if (jj_2_5(2)) {
+        getsegmentvarsb.append("Integer " + str +"_result = Contexts.execute(ctxt, " + str + ", null);\u005cn" );
+    if (jj_2_10(3)) {
+      jj_consume_token(44);
+      if (jj_2_7(3)) {
         t = jj_consume_token(CHARACTER_LITERAL);
-            sb.append("(value.equals(\u005c""+charTrim(t.toString()).trim()+"\u005c"))");
-      } else if (jj_2_6(2)) {
-        t = jj_consume_token(44);
+            sb.append("(Arrays.asList(\u005c""+charTrim(t.toString())+"\u005c").contains(value))");
+      } else if (jj_2_8(3)) {
+        t = jj_consume_token(45);
             sb.append("(value == null)");
-      } else if (jj_2_7(2)) {
+      } else if (jj_2_9(3)) {
         t = jj_consume_token(INTEGER_LITERAL);
+            getsegmentlogicsb.append("if (" + varname + "==" + t);
       } else {
         jj_consume_token(-1);
         throw new ParseException();
       }
-    } else if (jj_2_9(2)) {
+    } else if (jj_2_11(3)) {
       str = stringvalue_desc();
       sb.append("(" + str +")");
     } else {
@@ -169,7 +168,7 @@ public class SasParser implements SasParserConstants {
     }
     label_4:
     while (true) {
-      if (jj_2_10(2)) {
+      if (jj_2_12(3)) {
         ;
       } else {
         break label_4;
@@ -177,29 +176,35 @@ public class SasParser implements SasParserConstants {
       jj_consume_token(OR);
       varMap.put(str, t.toString());
       str = var_indentifier();
-      jj_consume_token(43);
+      varname = str + "_result";
+      getsegmentvarsb.append("Integer " + str+"_result = Contexts.execute(ctxt, " + str + ", null);\u005cn" );
+      jj_consume_token(44);
       t = jj_consume_token(INTEGER_LITERAL);
-      varMap.put(str, t.toString());
+      getsegmentlogicsb.append("|| " + varname + "==" + t + ") {\u005cn");
+      getsegmentlogicsb.append("return new SessionSegment1(); \u005cn}else{\u005cn");
+      getsegmentlogicsb.append("return new SessionSegment2(); \u005cn}");
+      varMap.put("getsegment", getsegmentvarsb.toString()+ getsegmentlogicsb.toString());
     }
     jj_consume_token(THEN);
     str = var_indentifier();
-    jj_consume_token(43);
+    jj_consume_token(44);
     sb.append(" woeValue").append(" = ");
     ifstatement.woeName = str;
-    if (jj_2_11(2)) {
+    woeMap.put(ifstatement.woeName, ifstatement.varName);
+    if (jj_2_13(3)) {
       flag = jj_consume_token(MINUS);
     } else {
       ;
     }
-    if (jj_2_12(2)) {
+    if (jj_2_14(3)) {
       value = jj_consume_token(FLOATING_POINT_LITERAL);
-    } else if (jj_2_13(2)) {
+    } else if (jj_2_15(3)) {
       value = jj_consume_token(INTEGER_LITERAL);
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
-    jj_consume_token(45);
+    jj_consume_token(46);
     if (flag.toString() != null && flag.toString().trim().equals("-"))
     {
       sb.append( flag.toString() + value.toString() );
@@ -216,6 +221,69 @@ public class SasParser implements SasParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  final public String scorecard() throws ParseException {
+  StringBuilder sb = new StringBuilder();
+  String str;
+  Token t;
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(44);
+    label_5:
+    while (true) {
+      coeff();
+      if (jj_2_16(3)) {
+        ;
+      } else {
+        break label_5;
+      }
+    }
+    jj_consume_token(46);
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(44);
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(LPARENTHESIS);
+    t = jj_consume_token(FLOATING_POINT_LITERAL);
+  coeff1 = t.toString();
+    jj_consume_token(PLUS);
+    jj_consume_token(LPARENTHESIS);
+    jj_consume_token(MINUS);
+    t = jj_consume_token(FLOATING_POINT_LITERAL);
+  coeff2 ="-" + t.toString();
+    jj_consume_token(RPARENTHESIS);
+    jj_consume_token(MULTIPLY);
+    jj_consume_token(LPARENTHESIS);
+    jj_consume_token(IDENTIFIER);
+    jj_consume_token(RPARENTHESIS);
+    jj_consume_token(RPARENTHESIS);
+    jj_consume_token(46);
+    {if (true) return sb.toString();}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public String coeff() throws ParseException {
+  String var = "";
+  Token sign ;
+  String value = "";
+  Token t;
+    if (jj_2_17(3)) {
+      sign = jj_consume_token(PLUS);
+    } else if (jj_2_18(3)) {
+      sign = jj_consume_token(MINUS);
+    } else {
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(LPARENTHESIS);
+    t = jj_consume_token(FLOATING_POINT_LITERAL);
+    jj_consume_token(MULTIPLY);
+    var = var_indentifier();
+    jj_consume_token(RPARENTHESIS);
+    if (var.equals("Intercept"))
+    coeffmapsb.append("coeffMap.put(\u005c"Intercept\u005c"," + sign.toString() + t.toString() + ");\u005cn");
+    else coeffmapsb.append("coeffMap.put("+woeMap.get(var)+".getName()," + sign.toString() + t.toString() + ");\u005cn");
+    {if (true) return null;}
+    throw new Error("Missing return statement in function");
+  }
+
   final public String elseif_statement() throws ParseException {
   StringBuilder sb = new StringBuilder();
   String str;
@@ -223,19 +291,19 @@ public class SasParser implements SasParserConstants {
     jj_consume_token(ELSE);
     jj_consume_token(IF);
     sb.append("else if ");
-    if (jj_2_16(2)) {
+    if (jj_2_21(3)) {
       str = var_indentifier();
-      if (jj_2_14(2)) {
+      if (jj_2_19(3)) {
         str = digitvalue_desc();
               sb.append("(" + str +")");
-      } else if (jj_2_15(2)) {
+      } else if (jj_2_20(3)) {
         str = stringvalue_desc();
             sb.append("(" + str +")");
       } else {
         jj_consume_token(-1);
         throw new ParseException();
       }
-    } else if (jj_2_17(2)) {
+    } else if (jj_2_22(3)) {
       jj_consume_token(LPARENTHESIS);
       str = digitvalue_desc();
       jj_consume_token(RPARENTHESIS);
@@ -246,9 +314,9 @@ public class SasParser implements SasParserConstants {
     }
     jj_consume_token(THEN);
     str = var_indentifier();
-    jj_consume_token(43);
+    jj_consume_token(44);
     sb.append(" woeValue = ");
-    if (jj_2_18(2)) {
+    if (jj_2_23(3)) {
       jj_consume_token(MINUS);
           sb.append("-");
     } else {
@@ -256,7 +324,7 @@ public class SasParser implements SasParserConstants {
     }
     t = jj_consume_token(FLOATING_POINT_LITERAL);
     sb.append(t.toString());
-    jj_consume_token(45);
+    jj_consume_token(46);
     sb.append(";");
   {if (true) return sb.toString();}
     throw new Error("Missing return statement in function");
@@ -268,24 +336,24 @@ public class SasParser implements SasParserConstants {
   StringBuilder sb = new StringBuilder();
     jj_consume_token(ELSE);
     str = var_indentifier();
-    jj_consume_token(43);
+    jj_consume_token(44);
     sb.append("else woeValue = ");
-    if (jj_2_19(2)) {
+    if (jj_2_24(3)) {
       jj_consume_token(MINUS);
           sb.append("-");
     } else {
       ;
     }
-    if (jj_2_20(2)) {
+    if (jj_2_25(3)) {
       t = jj_consume_token(FLOATING_POINT_LITERAL);
-    } else if (jj_2_21(2)) {
+    } else if (jj_2_26(3)) {
       t = jj_consume_token(INTEGER_LITERAL);
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
     sb.append(t.toString());
-    jj_consume_token(45);
+    jj_consume_token(46);
     sb.append(";");
   {if (true) return sb.toString();}
     throw new Error("Missing return statement in function");
@@ -294,9 +362,9 @@ public class SasParser implements SasParserConstants {
   final public void label_statement() throws ParseException {
     jj_consume_token(LABEL);
     var_indentifier();
-    jj_consume_token(43);
+    jj_consume_token(44);
     jj_consume_token(CHARACTER_LITERAL);
-    jj_consume_token(45);
+    jj_consume_token(46);
   }
 
   final public String var_indentifier() throws ParseException {
@@ -310,44 +378,44 @@ public class SasParser implements SasParserConstants {
   StringBuilder sb = new StringBuilder();
   String str;
   Token t;
-    if (jj_2_33(2)) {
-      jj_consume_token(43);
+    if (jj_2_38(3)) {
       jj_consume_token(44);
+      jj_consume_token(45);
      sb.append(" = . ");
-    } else if (jj_2_34(2)) {
+    } else if (jj_2_39(3)) {
       str = var_indentifier();
       jj_consume_token(GREATERTHAN);
    sb.append(" valueDouble > ");
-      if (jj_2_22(2)) {
+      if (jj_2_27(3)) {
         jj_consume_token(MINUS);
          sb.append("-");
       } else {
         ;
       }
-      if (jj_2_23(2)) {
+      if (jj_2_28(3)) {
         t = jj_consume_token(INTEGER_LITERAL);
     sb.append(t.toString());
-      } else if (jj_2_24(2)) {
+      } else if (jj_2_29(3)) {
         t = jj_consume_token(FLOATING_POINT_LITERAL);
     sb.append(t.toString());
       } else {
         jj_consume_token(-1);
         throw new ParseException();
       }
-    } else if (jj_2_35(2)) {
-      if (jj_2_28(2)) {
-        jj_consume_token(44);
+    } else if (jj_2_40(3)) {
+      if (jj_2_33(3)) {
+        jj_consume_token(45);
           sb.append("");
-      } else if (jj_2_29(2)) {
-        if (jj_2_25(2)) {
+      } else if (jj_2_34(3)) {
+        if (jj_2_30(3)) {
           t = jj_consume_token(MINUS);
                   sb.append("-");
         } else {
           ;
         }
-        if (jj_2_26(2)) {
+        if (jj_2_31(3)) {
           t = jj_consume_token(INTEGER_LITERAL);
-        } else if (jj_2_27(2)) {
+        } else if (jj_2_32(3)) {
           t = jj_consume_token(FLOATING_POINT_LITERAL);
         } else {
           jj_consume_token(-1);
@@ -362,16 +430,16 @@ public class SasParser implements SasParserConstants {
       str = var_indentifier();
       jj_consume_token(LESSTHANOREQUALTO);
        sb.append(" valueDouble <= ");
-      if (jj_2_30(2)) {
+      if (jj_2_35(3)) {
         jj_consume_token(MINUS);
            sb.append("-");
       } else {
         ;
       }
-      if (jj_2_31(2)) {
+      if (jj_2_36(3)) {
         t = jj_consume_token(INTEGER_LITERAL);
       sb.append(t.toString());
-      } else if (jj_2_32(2)) {
+      } else if (jj_2_37(3)) {
         t = jj_consume_token(FLOATING_POINT_LITERAL);
       sb.append(t.toString());
       } else {
@@ -389,31 +457,38 @@ public class SasParser implements SasParserConstants {
   final public String stringvalue_desc() throws ParseException {
   StringBuilder sb = new StringBuilder();
   Token t;
-    if (jj_2_39(2)) {
-      jj_consume_token(43);
+    if (jj_2_46(3)) {
+      jj_consume_token(44);
       t = jj_consume_token(CHARACTER_LITERAL);
-    sb.append(" (value.equals("+"\u005c"" + charTrim(t.toString()).trim() + "\u005c""+")) ");
-    } else if (jj_2_40(2)) {
+  sb.append(" Arrays.asList("+"\u005c"" + charTrim(t.toString()) + "\u005c""+").contains(value) ");
+    } else if (jj_2_47(3)) {
       jj_consume_token(IN);
       jj_consume_token(LPARENTHESIS);
     sb.append("Arrays.asList( ");
-      t = jj_consume_token(CHARACTER_LITERAL);
+      if (jj_2_41(3)) {
+        t = jj_consume_token(CHARACTER_LITERAL);
+      } else if (jj_2_42(3)) {
+        t = jj_consume_token(STRING_LITERAL);
+      } else {
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
     sb.append("\u005c"" + charTrim(t.toString()).trim() + "\u005c"");
-      label_5:
+      label_6:
       while (true) {
-        if (jj_2_36(2)) {
+        if (jj_2_43(3)) {
           ;
         } else {
-          break label_5;
+          break label_6;
         }
-        jj_consume_token(46);
+        jj_consume_token(47);
        sb.append(",");
-        if (jj_2_37(2)) {
+        if (jj_2_44(3)) {
           t = jj_consume_token(CHARACTER_LITERAL);
-                                 sb.append("\u005c"" + charTrim(t.toString()).trim() + "\u005c"");
-        } else if (jj_2_38(2)) {
+                                 sb.append("\u005c"" + charTrim(t.toString()) + "\u005c"");
+        } else if (jj_2_45(3)) {
           t = jj_consume_token(STRING_LITERAL);
-                                sb.append("\u005c"" + charTrim(t.toString()).trim() + "\u005c"");
+                                sb.append("\u005c"" + charTrim(t.toString()) + "\u005c"");
         } else {
           jj_consume_token(-1);
           throw new ParseException();
@@ -709,129 +784,90 @@ public class SasParser implements SasParserConstants {
     finally { jj_save(39, xla); }
   }
 
-  private boolean jj_3_38() {
-    if (jj_scan_token(STRING_LITERAL)) return true;
-    return false;
+  private boolean jj_2_41(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_41(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(40, xla); }
   }
 
-  private boolean jj_3R_8() {
-    if (jj_scan_token(ELSE)) return true;
-    if (jj_3R_11()) return true;
-    return false;
+  private boolean jj_2_42(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_42(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(41, xla); }
   }
 
-  private boolean jj_3_37() {
-    if (jj_scan_token(CHARACTER_LITERAL)) return true;
-    return false;
+  private boolean jj_2_43(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_43(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(42, xla); }
   }
 
-  private boolean jj_3_8() {
-    if (jj_scan_token(43)) return true;
+  private boolean jj_2_44(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_44(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(43, xla); }
+  }
+
+  private boolean jj_2_45(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_45(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(44, xla); }
+  }
+
+  private boolean jj_2_46(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_46(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(45, xla); }
+  }
+
+  private boolean jj_2_47(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_47(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(46, xla); }
+  }
+
+  private boolean jj_3_10() {
+    if (jj_scan_token(44)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_5()) {
+    if (jj_3_7()) {
     jj_scanpos = xsp;
-    if (jj_3_6()) {
+    if (jj_3_8()) {
     jj_scanpos = xsp;
-    if (jj_3_7()) return true;
+    if (jj_3_9()) return true;
     }
     }
-    return false;
-  }
-
-  private boolean jj_3_36() {
-    if (jj_scan_token(46)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_37()) {
-    jj_scanpos = xsp;
-    if (jj_3_38()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_40() {
-    if (jj_scan_token(IN)) return true;
-    if (jj_scan_token(LPARENTHESIS)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_scan_token(IF)) return true;
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3_39() {
-    if (jj_scan_token(43)) return true;
-    if (jj_scan_token(CHARACTER_LITERAL)) return true;
     return false;
   }
 
   private boolean jj_3R_10() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_39()) {
-    jj_scanpos = xsp;
-    if (jj_3_40()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_18() {
-    if (jj_scan_token(MINUS)) return true;
-    return false;
-  }
-
-  private boolean jj_3_15() {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3_14() {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3_32() {
-    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_17() {
-    if (jj_scan_token(LPARENTHESIS)) return true;
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3_31() {
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_30() {
-    if (jj_scan_token(MINUS)) return true;
+    if (jj_scan_token(LABEL)) return true;
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(44)) return true;
     return false;
   }
 
   private boolean jj_3_16() {
-    if (jj_3R_11()) return true;
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_11() {
+    if (jj_scan_token(IF)) return true;
+    if (jj_3R_14()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3_14()) {
+    if (jj_3_10()) {
     jj_scanpos = xsp;
-    if (jj_3_15()) return true;
+    if (jj_3_11()) return true;
     }
-    return false;
-  }
-
-  private boolean jj_3_27() {
-    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_25() {
-    if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
@@ -840,169 +876,351 @@ public class SasParser implements SasParserConstants {
     return false;
   }
 
-  private boolean jj_3_29() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_25()) jj_scanpos = xsp;
-    xsp = jj_scanpos;
-    if (jj_3_26()) {
-    jj_scanpos = xsp;
-    if (jj_3_27()) return true;
-    }
+  private boolean jj_3_45() {
+    if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3R_7() {
-    if (jj_scan_token(ELSE)) return true;
-    if (jj_scan_token(IF)) return true;
-    return false;
-  }
-
-  private boolean jj_3_4() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  private boolean jj_3_28() {
-    if (jj_scan_token(44)) return true;
-    return false;
-  }
-
-  private boolean jj_3_35() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_28()) {
-    jj_scanpos = xsp;
-    if (jj_3_29()) return true;
-    }
-    if (jj_scan_token(LESSTHAN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_24() {
+  private boolean jj_3_25() {
     if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_3() {
-    if (jj_3R_8()) return true;
+  private boolean jj_3_44() {
+    if (jj_scan_token(CHARACTER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_24() {
+    if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_9() {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(44)) return true;
+    return false;
+  }
+
+  private boolean jj_3_43() {
+    if (jj_scan_token(47)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_44()) {
+    jj_scanpos = xsp;
+    if (jj_3_45()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_12() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(44)) return true;
+    Token xsp;
+    if (jj_3_16()) return true;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3_16()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  private boolean jj_3_42() {
+    if (jj_scan_token(STRING_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_41() {
+    if (jj_scan_token(CHARACTER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_47() {
+    if (jj_scan_token(IN)) return true;
+    if (jj_scan_token(LPARENTHESIS)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_41()) {
+    jj_scanpos = xsp;
+    if (jj_3_42()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_46() {
+    if (jj_scan_token(44)) return true;
+    if (jj_scan_token(CHARACTER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_46()) {
+    jj_scanpos = xsp;
+    if (jj_3_47()) return true;
+    }
     return false;
   }
 
   private boolean jj_3_23() {
+    if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3_20() {
+    if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3_19() {
+    if (jj_3R_16()) return true;
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3_37() {
+    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_36() {
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
   private boolean jj_3_22() {
+    if (jj_scan_token(LPARENTHESIS)) return true;
+    if (jj_3R_16()) return true;
+    return false;
+  }
+
+  private boolean jj_3_35() {
     if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3_34() {
-    if (jj_3R_11()) return true;
-    if (jj_scan_token(GREATERTHAN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_33() {
-    if (jj_scan_token(43)) return true;
-    if (jj_scan_token(44)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_12() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_33()) {
-    jj_scanpos = xsp;
-    if (jj_3_34()) {
-    jj_scanpos = xsp;
-    if (jj_3_35()) return true;
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_6() {
-    if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3_13() {
+  private boolean jj_3_15() {
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_12() {
+  private boolean jj_3_21() {
+    if (jj_3R_14()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_19()) {
+    jj_scanpos = xsp;
+    if (jj_3_20()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_3() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3_14() {
     if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_1() {
-    if (jj_3R_6()) return true;
+  private boolean jj_3_32() {
+    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_11() {
+  private boolean jj_3_13() {
     if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
-  private boolean jj_3R_11() {
-    if (jj_scan_token(IDENTIFIER)) return true;
+  private boolean jj_3_30() {
+    if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
-  private boolean jj_3R_9() {
-    if (jj_scan_token(LABEL)) return true;
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3_7() {
+  private boolean jj_3_31() {
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_10() {
-    if (jj_scan_token(OR)) return true;
+  private boolean jj_3_34() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_30()) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_3_31()) {
+    jj_scanpos = xsp;
+    if (jj_3_32()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_2() {
+    if (jj_3R_8()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_8() {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_scan_token(IF)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_21()) {
+    jj_scanpos = xsp;
+    if (jj_3_22()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_33() {
+    if (jj_scan_token(45)) return true;
+    return false;
+  }
+
+  private boolean jj_3_40() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_33()) {
+    jj_scanpos = xsp;
+    if (jj_3_34()) return true;
+    }
+    if (jj_scan_token(LESSTHAN)) return true;
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_29() {
+    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_5() {
     if (jj_3R_11()) return true;
     return false;
   }
 
-  private boolean jj_3_6() {
+  private boolean jj_3R_7() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_5()) {
+    jj_scanpos = xsp;
+    if (jj_3_6()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_28() {
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_27() {
+    if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3_39() {
+    if (jj_3R_14()) return true;
+    if (jj_scan_token(GREATERTHAN)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_27()) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_3_28()) {
+    jj_scanpos = xsp;
+    if (jj_3_29()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_38() {
+    if (jj_scan_token(44)) return true;
+    if (jj_scan_token(45)) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_38()) {
+    jj_scanpos = xsp;
+    if (jj_3_39()) {
+    jj_scanpos = xsp;
+    if (jj_3_40()) return true;
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3_12() {
+    if (jj_scan_token(OR)) return true;
+    if (jj_3R_14()) return true;
     if (jj_scan_token(44)) return true;
     return false;
   }
 
   private boolean jj_3_9() {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3_5() {
-    if (jj_scan_token(CHARACTER_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_21() {
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_20() {
-    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
+  private boolean jj_3_8() {
+    if (jj_scan_token(45)) return true;
     return false;
   }
 
-  private boolean jj_3_19() {
+  private boolean jj_3_11() {
+    if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3_18() {
     if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3_17() {
+    if (jj_scan_token(PLUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3_7() {
+    if (jj_scan_token(CHARACTER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_14() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_17()) {
+    jj_scanpos = xsp;
+    if (jj_3_18()) return true;
+    }
+    if (jj_scan_token(LPARENTHESIS)) return true;
+    if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
@@ -1030,7 +1248,7 @@ public class SasParser implements SasParserConstants {
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[40];
+  final private JJCalls[] jj_2_rtns = new JJCalls[47];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -1214,7 +1432,7 @@ public class SasParser implements SasParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[47];
+    boolean[] la1tokens = new boolean[48];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -1231,7 +1449,7 @@ public class SasParser implements SasParserConstants {
         }
       }
     }
-    for (int i = 0; i < 47; i++) {
+    for (int i = 0; i < 48; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -1258,7 +1476,7 @@ public class SasParser implements SasParserConstants {
 
   private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 40; i++) {
+    for (int i = 0; i < 47; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -1305,6 +1523,13 @@ public class SasParser implements SasParserConstants {
             case 37: jj_3_38(); break;
             case 38: jj_3_39(); break;
             case 39: jj_3_40(); break;
+            case 40: jj_3_41(); break;
+            case 41: jj_3_42(); break;
+            case 42: jj_3_43(); break;
+            case 43: jj_3_44(); break;
+            case 44: jj_3_45(); break;
+            case 45: jj_3_46(); break;
+            case 46: jj_3_47(); break;
           }
         }
         p = p.next;

@@ -1,2 +1,2 @@
-if login_VIDMatch=1 or login_IP4Match=1 then smlt_seg=1;
-else smlt_seg=2;
+if login_VIDMatch=1 or login_IP4Match=1 then seg=1;
+else seg=2;

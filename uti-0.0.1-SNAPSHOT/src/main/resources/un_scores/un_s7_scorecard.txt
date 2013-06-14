@@ -1,0 +1,33 @@
+
+
+SCOR = 
++   (3.36838907    *Intercept                                  )
+-   (0.40656204    *wdays_snc_1st_clrd_ach_s7                  )
+-   (1.03361117    *wlife_time_failure_cnt_s7                  )
+-   (1.03498358    *wacct_h_s_amt_dk_320_s7                    )
+-   (0.30117326    *wip_ratio_4w_appr_dol_s7                   )
+-   (0.55350864    *wCP4WRtAtoBadAcc_s7                        )
+-   (0.90363479    *wach_dof_age_s7                            )
+-   (0.31108877    *wMOA_V_MOALife_s7                          )
+-   (0.42806797    *webay_5d_txn_dk_360all_s7                  )
+-   (0.56347626    *wncc_failed_ratio_s7                       )
+-   (0.28409632    *wnum_logins_7_days_s7                      )
+-   (0.42498864    *wprtlamt_to_max_sent_30_s7                 )
+-   (1.29935482    *wemail_numofnumeric_s7                     )
+-   (0.27594758    *wip_amt_dk_20_s7                           )
+-   (0.50913273    *wIS_SCHEDULED_PAYMENT_s7                   )
+-   (0.44774067    *wacct_h_v_cnt_dk_40_s7                     )
+-   (1.20257610    *wemail_numofletter_s7                      )
+-   (1.20988738    *wcc_num_credit_s7                          )
+-   (0.71255424    *wIP4WRtDolBadTxn_s7                        )
+-   (0.65612741    *ws_outstd_iach_amt_s7                      )
+-   (0.29463361    *wSNR1WRtDolDclTxn_s7                       )
+-   (0.52500474    *ws_rtrn_decay_30d_cnt_s7                   )
+-   (0.51341201    *wv36_d_sn_prev_login_s7                    )
+-   (0.43712943    *wnum_logins_failed_14_days_s7              )
+-   (0.32245005    *wcp_ratio_20w_ato_dol_s7                   )
+-   (0.38015849    *wemail_MP_since_bought_s7                  )
+-   (0.66543179    *wadded_address_lt_14_s7                    )
+-   (0.25421553    *wr_ratio_avg_dk_160_s7                     )
+    ;
+ARM2012_UN_aligned_score = int( 842.43029526 + ( -56.43019085 )*(SCOR));

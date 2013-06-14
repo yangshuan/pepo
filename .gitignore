@@ -1,0 +1,7 @@
+*.bak
+.classpath
+.project
+.settings
+target/
+reports/
+projects/*/src/META-INF

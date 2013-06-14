@@ -1,0 +1,33 @@
+
+
+SCOR = 
++   (2.87065255    *Intercept                                  )
+-   (0.58012116    *wn_rt_dcl_14dys_s2                         )
+-   (0.19152602    *wv36_tx_cnt_in_last_1d_s2                  )
+-   (0.62678341    *wach_outstd_age_s2                         )
+-   (0.54160940    *wDecline_rate_ccbin_s2                     )
+-   (0.26357112    *wCP1WRtDolAtoBadTxn_s2                     )
+-   (0.91896459    *wnum_bank_account_id_90d_s2                )
+-   (0.45736227    *wmax_cross20wRtDclAcc_s2                   )
+-   (0.44919705    *wv36_login_exces_1h_s2                     )
+-   (0.62675311    *wipr_ratio_4w_uaa_dol_s2                   )
+-   (0.77540879    *wIP4WRtDolBadTxn_s2                        )
+-   (0.57920712    *wcp_ratio_20w_ato_dol_s2                   )
+-   (0.62708645    *wBad_rate_amt_ccbin_s2                     )
+-   (0.40740871    *wCP4WRtDolBadTxn_s2                        )
+-   (0.50417307    *ws_ratio_avg_dk_320_s2                     )
+-   (0.55902110    *wemail_MP_7d_UPI_dk_s2                     )
+-   (0.49661048    *wc_dof_s2                                  )
+-   (0.83611507    *wis_tail_s2                                )
+-   (0.09505392    *wtxnsnt_amt_stss__hrs_216E_s2              )
+-   (0.52416303    *ws_mp_amt_dk_80_s2                         )
+-   (0.19929697    *wv36_diff_vid_3d_s2                        )
+-   (0.23086746    *wprimaryach_checking_s2                    )
+-   (0.84017014    *wfullname_lowcase_s2                       )
+-   (0.52379605    *wc_cc_num_ss_s2                            )
+-   (0.43260941    *wSNR1WRtDolDclTxn_s2                       )
+-   (0.35976869    *wemail_numofvowel_s2                       )
+-   (0.84671251    *wyodlee_iav_bal_s2                         )
+-   (0.34660906    *wip_avg_dk_10_s2                           )
+    ;
+ARM2012_UN_aligned_score = int( 861.10474214 + ( -57.94507918 )*(SCOR));

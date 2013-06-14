@@ -1,0 +1,507 @@
+VARIABLE BEGIN:
+name:windustry2 type:real
+code:if (input.industry2 =  1005) then windustry2 = -1.497048.
+else if (input.industry2 =  1019) then windustry2 = -1.362229.
+else if (input.industry2 =  1011) then windustry2 =  0.020628.
+else if (input.industry2 =  1020) then windustry2 =  0.187783.
+else if (input.industry2 =    12) then windustry2 =  0.266232.
+else if (input.industry2 =  1003) then windustry2 =  0.347515.
+else if (input.industry2 =    29) then windustry2 =  0.735199.
+else if (input.industry2 =  1006) then windustry2 =  0.828337.
+else if (input.industry2 =  1008) then windustry2 =  0.872938.
+else if (input.industry2 =  1009) then windustry2 =  1.437353.
+else windustry2 = 0.
+END
+VARIABLE BEGIN:
+name:billing_shipping_mismatchzscl type:real
+code:billing_shipping_mismatchzscl = normalizeVariable(record.billing_shipping_mismatch_noMissing,0.6227822434644094,0.926124594292924).
+END
+VARIABLE BEGIN:
+name:c_first_address_dofzscl type:real
+code:c_first_address_dofzscl = normalizeVariable(record.c_first_address_dof_noMissing,3038.5419550636275,4583.882027642763).
+END
+VARIABLE BEGIN:
+name:c_last_address_dofzscl type:real
+code:c_last_address_dofzscl = normalizeVariable(record.c_last_address_dof_noMissing,662.0030439770421,827.5996161188564).
+END
+VARIABLE BEGIN:
+name:is_rsdc_ip_cntry_matchzscl type:real
+code:is_rsdc_ip_cntry_matchzscl = normalizeVariable(record.is_rsdc_ip_cntry_match_noMissing,1.0564439106571126,0.25226513763219094).
+END
+VARIABLE BEGIN:
+name:num_logins_30_dayszscl type:real
+code:num_logins_30_dayszscl = normalizeVariable(record.num_logins_30_days_noMissing,15.668002501330944,22.578187275083998).
+END
+VARIABLE BEGIN:
+name:num_logins_7_dayszscl type:real
+code:num_logins_7_dayszscl = normalizeVariable(record.num_logins_7_days_noMissing,5.621849481993987,8.754014225084914).
+END
+VARIABLE BEGIN:
+name:num_rcpt_7_dayszscl type:real
+code:num_rcpt_7_dayszscl = normalizeVariable(record.num_rcpt_7_days_noMissing,1.7991005774649584,2.5991923709200253).
+END
+VARIABLE BEGIN:
+name:num_spoof_url_30dayzscl type:real
+code:num_spoof_url_30dayzscl = normalizeVariable(record.num_spoof_url_30day_noMissing,0.003822591318850793,0.062120765508581054).
+END
+VARIABLE BEGIN:
+name:num_vidszscl type:real
+code:num_vidszscl = normalizeVariable(record.num_vids_noMissing,31.523496889960775,35.98282647560135).
+END
+VARIABLE BEGIN:
+name:radd_n_vid_s_0zscl type:real
+code:radd_n_vid_s_0zscl = normalizeVariable(record.radd_n_vid_s_0_noMissing,1.0429307110347938,0.7399445486091342).
+END
+VARIABLE BEGIN:
+name:S_ALIAS_N_ADDED_3zscl type:real
+code:S_ALIAS_N_ADDED_3zscl = normalizeVariable(record.S_ALIAS_N_ADDED_3_noMissing,0.07112260666751301,0.264883428924444).
+END
+VARIABLE BEGIN:
+name:S_CC_D_SINCE_OLDEST_CHGzscl type:real
+code:S_CC_D_SINCE_OLDEST_CHGzscl = normalizeVariable(record.S_CC_D_SINCE_OLDEST_CHG_noMissing,367.7720436630883,296.14486887449453).
+END
+VARIABLE BEGIN:
+name:s_cc_pct_creditzscl type:real
+code:s_cc_pct_creditzscl = normalizeVariable(record.s_cc_pct_credit_noMissing,0.3507143857443967,0.6259753764127944).
+END
+VARIABLE BEGIN:
+name:s_cc_pct_passed_randomchargezscl type:real
+code:s_cc_pct_passed_randomchargezscl = normalizeVariable(record.s_cc_pct_passed_randomcharge_noMissing,-0.1005380351708457,0.37260719306905266).
+END
+VARIABLE BEGIN:
+name:s_dofzscl type:real
+code:s_dofzscl = normalizeVariable(record.s_dof_noMissing,1907.2515343989821,1310.0960535688894).
+END
+VARIABLE BEGIN:
+name:time_snc_last_sendzscl type:real
+code:time_snc_last_sendzscl = normalizeVariable(record.time_snc_last_send_noMissing,1042628.6725204355,3807457.295333827).
+END
+VARIABLE BEGIN:
+name:CP20WRtAtoBadTxnzscl type:real
+code:CP20WRtAtoBadTxnzscl = normalizeVariable(record.CP20WRtAtoBadTxn_noMissing,8.144678441474496E-4,0.004427596170720608).
+END
+VARIABLE BEGIN:
+name:CP20WRtDolAtoBadTxnzscl type:real
+code:CP20WRtDolAtoBadTxnzscl = normalizeVariable(record.CP20WRtDolAtoBadTxn_noMissing,0.0013097815413157124,0.006893133214047203).
+END
+VARIABLE BEGIN:
+name:CP4WRtAtoBadTxnzscl type:real
+code:CP4WRtAtoBadTxnzscl = normalizeVariable(record.CP4WRtAtoBadTxn_noMissing,6.764785381321187E-4,0.006530740291296184).
+END
+VARIABLE BEGIN:
+name:CP4WRtDclTxnzscl type:real
+code:CP4WRtDclTxnzscl = normalizeVariable(record.CP4WRtDclTxn_noMissing,0.02475439592224938,0.04380376678147815).
+END
+VARIABLE BEGIN:
+name:IPR20WRtDolAtoBadTxnzscl type:real
+code:IPR20WRtDolAtoBadTxnzscl = normalizeVariable(record.IPR20WRtDolAtoBadTxn_noMissing,0.0018458034678831947,0.014195901284599197).
+END
+VARIABLE BEGIN:
+name:max_CP20wRtAtoCcBadTxnzscl type:real
+code:max_CP20wRtAtoCcBadTxnzscl = normalizeVariable(record.max_CP20wRtAtoCcBadTxn_noMissing,0.0012857226600221433,0.007012684676993919).
+END
+VARIABLE BEGIN:
+name:max_CP20wRtDolAtoCcBadTxnzscl type:real
+code:max_CP20wRtDolAtoCcBadTxnzscl = normalizeVariable(record.max_CP20wRtDolAtoCcBadTxn_noMissing,0.0021483132537765174,0.010577665505339673).
+END
+VARIABLE BEGIN:
+name:max_cross20wRtDolAtoCcBadTxnzscl type:real
+code:max_cross20wRtDolAtoCcBadTxnzscl = normalizeVariable(record.max_cross20wRtDolAtoCcBadTxn_noMissing,0.008377907863442243,0.037117944698893464).
+END
+VARIABLE BEGIN:
+name:max_cross4wRtDolDclTxnzscl type:real
+code:max_cross4wRtDolDclTxnzscl = normalizeVariable(record.max_cross4wRtDolDclTxn_noMissing,0.06717641842187304,0.0762092057787133).
+END
+VARIABLE BEGIN:
+name:CP20WRtAtoBadAcc_logzscl type:real
+code:CP20WRtAtoBadAcc_logzscl = normalizeVariable(record.CP20WRtAtoBadAcc_log_noMissing,-6.758606419887322,0.455319611379773).
+END
+VARIABLE BEGIN:
+name:CP20WRtCcBadAcc_logzscl type:real
+code:CP20WRtCcBadAcc_logzscl = normalizeVariable(record.CP20WRtCcBadAcc_log_noMissing,-6.713425711476596,0.5271439623557173).
+END
+VARIABLE BEGIN:
+name:CP20WRtDolCcXbrBadTxn_logzscl type:real
+code:CP20WRtDolCcXbrBadTxn_logzscl = normalizeVariable(record.CP20WRtDolCcXbrBadTxn_log_noMissing,-6.574527508424268,0.7401986217146456).
+END
+VARIABLE BEGIN:
+name:CP4WRtDolBadTxn_logzscl type:real
+code:CP4WRtDolBadTxn_logzscl = normalizeVariable(record.CP4WRtDolBadTxn_log_noMissing,-6.113545183547152,0.9061088884753576).
+END
+VARIABLE BEGIN:
+name:ED20WRtCcBadAcc_logzscl type:real
+code:ED20WRtCcBadAcc_logzscl = normalizeVariable(record.ED20WRtCcBadAcc_log_noMissing,-6.591636582041279,0.2473458750746954).
+END
+VARIABLE BEGIN:
+name:CB_NUM_RATEzscl type:real
+code:CB_NUM_RATEzscl = normalizeVariable(record.CB_NUM_RATE_noMissing,-0.15308752900406192,1.1665868634625776).
+END
+VARIABLE BEGIN:
+name:CB_AMT_RATEzscl type:real
+code:CB_AMT_RATEzscl = normalizeVariable(record.CB_AMT_RATE_noMissing,-0.15235597935369902,1.166701029494706).
+END
+VARIABLE BEGIN:
+name:SELLER_TRAN_BR_CNT_CC_NEWzscl type:real
+code:SELLER_TRAN_BR_CNT_CC_NEWzscl = normalizeVariable(record.SELLER_TRAN_BR_CNT_CC_NEW_noMissing,-0.12201959762907798,1.0313178442253617).
+END
+VARIABLE BEGIN:
+name:SELLER_TRAN_BR_AMT_CC_NEWzscl type:real
+code:SELLER_TRAN_BR_AMT_CC_NEWzscl = normalizeVariable(record.SELLER_TRAN_BR_AMT_CC_NEW_noMissing,-0.12104481517649854,1.0383342971734775).
+END
+VARIABLE BEGIN:
+name:ASP3_AMT_CC_RATEzscl type:real
+code:ASP3_AMT_CC_RATEzscl = normalizeVariable(record.ASP3_AMT_CC_RATE_noMissing,-0.2870665046338544,1.0782813285496304).
+END
+VARIABLE BEGIN:
+name:XB_AMT_IND_RATEzscl type:real
+code:XB_AMT_IND_RATEzscl = normalizeVariable(record.XB_AMT_IND_RATE_noMissing,-0.30443195483030816,1.0821147640130175).
+END
+VARIABLE BEGIN:
+name:XB_AMT_CB_RATEzscl type:real
+code:XB_AMT_CB_RATEzscl = normalizeVariable(record.XB_AMT_CB_RATE_noMissing,-0.3076303548128764,1.081073018702271).
+END
+VARIABLE BEGIN:
+name:ASP2_AMT_CB_RATEzscl type:real
+code:ASP2_AMT_CB_RATEzscl = normalizeVariable(record.ASP2_AMT_CB_RATE_noMissing,-0.19833839425205213,1.055818942453843).
+END
+VARIABLE BEGIN:
+name:ASP3_CNT_CB_RATEzscl type:real
+code:ASP3_CNT_CB_RATEzscl = normalizeVariable(record.ASP3_CNT_CB_RATE_noMissing,-0.28793455669472606,1.0779892439253127).
+END
+VARIABLE BEGIN:
+name:ISSUER_DENY_AMT_PCTzscl type:real
+code:ISSUER_DENY_AMT_PCTzscl = normalizeVariable(record.ISSUER_DENY_AMT_PCT_noMissing,-0.10322572114578332,1.1705555316097975).
+END
+VARIABLE BEGIN:
+name:edomain_acct_acct_bad_ratezscl type:real
+code:edomain_acct_acct_bad_ratezscl = normalizeVariable(record.edomain_acct_acct_bad_rate_noMissing,0.0035766251177025837,0.0019334065692818978).
+END
+VARIABLE BEGIN:
+name:cc_bin_acct_acct_bad_rlogzscl type:real
+code:cc_bin_acct_acct_bad_rlogzscl = normalizeVariable(record.cc_bin_acct_acct_bad_rlog_noMissing,-5.953566772555449,0.26083231088949327).
+END
+VARIABLE BEGIN:
+name:seller_tran_amt_bad_rlogzscl type:real
+code:seller_tran_amt_bad_rlogzscl = normalizeVariable(record.seller_tran_amt_bad_rlog_noMissing,-5.283349455330446,1.2301388124797221).
+END
+VARIABLE BEGIN:
+name:seller_acct_acct_bad_rlogzscl type:real
+code:seller_acct_acct_bad_rlogzscl = normalizeVariable(record.seller_acct_acct_bad_rlog_noMissing,-5.865702689121291,0.7333016570552034).
+END
+VARIABLE BEGIN:
+name:seller_dec_decline_rlogzscl type:real
+code:seller_dec_decline_rlogzscl = normalizeVariable(record.seller_dec_decline_rlog_noMissing,-4.092525141147443,1.6823222985371673).
+END
+VARIABLE BEGIN:
+name:edomain_tran_amt_bad_rlogzscl type:real
+code:edomain_tran_amt_bad_rlogzscl = normalizeVariable(record.edomain_tran_amt_bad_rlog_noMissing,-4.800163020891827,0.6859325921148837).
+END
+VARIABLE BEGIN:
+name:edomain_acct_acct_bad_rlogzscl type:real
+code:edomain_acct_acct_bad_rlogzscl = normalizeVariable(record.edomain_acct_acct_bad_rlog_noMissing,-5.716133098519412,0.3985769069841667).
+END
+VARIABLE BEGIN:
+name:edomain_dec_decline_rlogzscl type:real
+code:edomain_dec_decline_rlogzscl = normalizeVariable(record.edomain_dec_decline_rlog_noMissing,-3.2104944773466815,0.5215256156705954).
+END
+VARIABLE BEGIN:
+name:ccip_cntry_tran_bad_rlogzscl type:real
+code:ccip_cntry_tran_bad_rlogzscl = normalizeVariable(record.ccip_cntry_tran_bad_rlog_noMissing,-5.396947660412907,0.1734506615340099).
+END
+VARIABLE BEGIN:
+name:fullname_mixcasezscl type:real
+code:fullname_mixcasezscl = record.fullname_mixcase_noMissing.
+END
+VARIABLE BEGIN:
+name:is_xbzscl type:real
+code:is_xbzscl = record.is_xb_noMissing.
+END
+VARIABLE BEGIN:
+name:s_de_area_code_matchzscl type:real
+code:s_de_area_code_matchzscl = record.s_de_area_code_match_noMissing.
+END
+VARIABLE BEGIN:
+name:s_has_used_ip3zscl type:real
+code:s_has_used_ip3zscl = record.s_has_used_ip3_noMissing.
+END
+VARIABLE BEGIN:
+name:s_last_name_mixcasezscl type:real
+code:s_last_name_mixcasezscl = record.s_last_name_mixcase_noMissing.
+END
+VARIABLE BEGIN:
+name:s_last_name_mixcase_MV01 type:real
+code:s_last_name_mixcase_MV01 = createMvDummy(input.s_last_name_mixcase,MV.MV01).
+END
+VARIABLE BEGIN:
+name:has_bad_vid_MV01 type:real
+code:has_bad_vid_MV01 = createMvDummy(input.has_bad_vid,MV.MV01).
+END
+VARIABLE BEGIN:
+name:radd_timezone_pct_0_1_MV01 type:real
+code:radd_timezone_pct_0_1_MV01 = createMvDummy(input.radd_timezone_pct_0_1,MV.MV01).
+END
+VARIABLE BEGIN:
+name:radd_timezone_pct_0_2_MV01 type:real
+code:radd_timezone_pct_0_2_MV01 = createMvDummy(input.radd_timezone_pct_0_2,MV.MV01).
+END
+VARIABLE BEGIN:
+name:s_visitor_id_tof_MV01 type:real
+code:s_visitor_id_tof_MV01 = createMvDummy(input.s_visitor_id_tof,MV.MV01).
+END
+VARIABLE BEGIN:
+name:time_snc_last_send_MV01 type:real
+code:time_snc_last_send_MV01 = createMvDummy(input.time_snc_last_send,MV.MV01).
+END
+VARIABLE BEGIN:
+name:cp_ratio_1w_uaa_dol_MV01 type:real
+code:cp_ratio_1w_uaa_dol_MV01 = createMvDummy(input.cp_ratio_1w_uaa_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:cp_ratio_20w_ato_dol_MV01 type:real
+code:cp_ratio_20w_ato_dol_MV01 = createMvDummy(input.cp_ratio_20w_ato_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:cp_ratio_4w_ato_dol_MV01 type:real
+code:cp_ratio_4w_ato_dol_MV01 = createMvDummy(input.cp_ratio_4w_ato_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:cp_ratio_4w_uaa_dol_MV01 type:real
+code:cp_ratio_4w_uaa_dol_MV01 = createMvDummy(input.cp_ratio_4w_uaa_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:ip_ratio_20w_uaa_dol_MV01 type:real
+code:ip_ratio_20w_uaa_dol_MV01 = createMvDummy(input.ip_ratio_20w_uaa_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:ipr_ratio_4w_ato_dol_MV01 type:real
+code:ipr_ratio_4w_ato_dol_MV01 = createMvDummy(input.ipr_ratio_4w_ato_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:ipr_ratio_4w_uaa_dol_MV01 type:real
+code:ipr_ratio_4w_uaa_dol_MV01 = createMvDummy(input.ipr_ratio_4w_uaa_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:snr_ratio_20w_ato_dol_MV01 type:real
+code:snr_ratio_20w_ato_dol_MV01 = createMvDummy(input.snr_ratio_20w_ato_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:snr_ratio_20w_uaa_dol_MV01 type:real
+code:snr_ratio_20w_uaa_dol_MV01 = createMvDummy(input.snr_ratio_20w_uaa_dol,MV.MV01).
+END
+VARIABLE BEGIN:
+name:billing_shipping_mismatch_noMissing type:real
+code:billing_shipping_mismatch_noMissing = replaceMissing(input.billing_shipping_mismatch,0.0).
+END
+VARIABLE BEGIN:
+name:c_first_address_dof_noMissing type:real
+code:c_first_address_dof_noMissing = replaceMissing(input.c_first_address_dof,1503.0).
+END
+VARIABLE BEGIN:
+name:c_last_address_dof_noMissing type:real
+code:c_last_address_dof_noMissing = replaceMissing(input.c_last_address_dof,403.0).
+END
+VARIABLE BEGIN:
+name:is_rsdc_ip_cntry_match_noMissing type:real
+code:is_rsdc_ip_cntry_match_noMissing = replaceMissing(input.is_rsdc_ip_cntry_match,1.0).
+END
+VARIABLE BEGIN:
+name:num_logins_30_days_noMissing type:real
+code:num_logins_30_days_noMissing = replaceMissing(input.num_logins_30_days,9.0).
+END
+VARIABLE BEGIN:
+name:num_logins_7_days_noMissing type:real
+code:num_logins_7_days_noMissing = replaceMissing(input.num_logins_7_days,3.0).
+END
+VARIABLE BEGIN:
+name:num_rcpt_7_days_noMissing type:real
+code:num_rcpt_7_days_noMissing = replaceMissing(input.num_rcpt_7_days,1.0).
+END
+VARIABLE BEGIN:
+name:num_spoof_url_30day_noMissing type:real
+code:num_spoof_url_30day_noMissing = replaceMissing(input.num_spoof_url_30day,0.0).
+END
+VARIABLE BEGIN:
+name:num_vids_noMissing type:real
+code:num_vids_noMissing = replaceMissing(input.num_vids,20.0).
+END
+VARIABLE BEGIN:
+name:radd_n_vid_s_0_noMissing type:real
+code:radd_n_vid_s_0_noMissing = replaceMissing(input.radd_n_vid_s_0,1.0).
+END
+VARIABLE BEGIN:
+name:S_ALIAS_N_ADDED_3_noMissing type:real
+code:S_ALIAS_N_ADDED_3_noMissing = replaceMissing(input.S_ALIAS_N_ADDED_3,0.0).
+END
+VARIABLE BEGIN:
+name:S_CC_D_SINCE_OLDEST_CHG_noMissing type:real
+code:S_CC_D_SINCE_OLDEST_CHG_noMissing = replaceMissing(input.S_CC_D_SINCE_OLDEST_CHG,420.0).
+END
+VARIABLE BEGIN:
+name:s_cc_pct_credit_noMissing type:real
+code:s_cc_pct_credit_noMissing = replaceMissing(input.s_cc_pct_credit,0.5).
+END
+VARIABLE BEGIN:
+name:s_cc_pct_passed_randomcharge_noMissing type:real
+code:s_cc_pct_passed_randomcharge_noMissing = replaceMissing(input.s_cc_pct_passed_randomcharge,0.0).
+END
+VARIABLE BEGIN:
+name:s_dof_noMissing type:real
+code:s_dof_noMissing = replaceMissing(input.s_dof,1885.0).
+END
+VARIABLE BEGIN:
+name:time_snc_last_send_noMissing type:real
+code:time_snc_last_send_noMissing = replaceMissing(input.time_snc_last_send,115909.0).
+END
+VARIABLE BEGIN:
+name:CP20WRtAtoBadTxn_noMissing type:real
+code:CP20WRtAtoBadTxn_noMissing = replaceMissing(input.CP20WRtAtoBadTxn,1.0E-4).
+END
+VARIABLE BEGIN:
+name:CP20WRtDolAtoBadTxn_noMissing type:real
+code:CP20WRtDolAtoBadTxn_noMissing = replaceMissing(input.CP20WRtDolAtoBadTxn,2.0E-4).
+END
+VARIABLE BEGIN:
+name:CP4WRtAtoBadTxn_noMissing type:real
+code:CP4WRtAtoBadTxn_noMissing = replaceMissing(input.CP4WRtAtoBadTxn,0.0).
+END
+VARIABLE BEGIN:
+name:CP4WRtDclTxn_noMissing type:real
+code:CP4WRtDclTxn_noMissing = replaceMissing(input.CP4WRtDclTxn,0.0077).
+END
+VARIABLE BEGIN:
+name:IPR20WRtDolAtoBadTxn_noMissing type:real
+code:IPR20WRtDolAtoBadTxn_noMissing = replaceMissing(input.IPR20WRtDolAtoBadTxn,0.0).
+END
+VARIABLE BEGIN:
+name:max_CP20wRtAtoCcBadTxn_noMissing type:real
+code:max_CP20wRtAtoCcBadTxn_noMissing = replaceMissing(input.max_CP20wRtAtoCcBadTxn,3.0E-4).
+END
+VARIABLE BEGIN:
+name:max_CP20wRtDolAtoCcBadTxn_noMissing type:real
+code:max_CP20wRtDolAtoCcBadTxn_noMissing = replaceMissing(input.max_CP20wRtDolAtoCcBadTxn,4.0E-4).
+END
+VARIABLE BEGIN:
+name:max_cross20wRtDolAtoCcBadTxn_noMissing type:real
+code:max_cross20wRtDolAtoCcBadTxn_noMissing = replaceMissing(input.max_cross20wRtDolAtoCcBadTxn,0.0034).
+END
+VARIABLE BEGIN:
+name:max_cross4wRtDolDclTxn_noMissing type:real
+code:max_cross4wRtDolDclTxn_noMissing = replaceMissing(input.max_cross4wRtDolDclTxn,0.0478).
+END
+VARIABLE BEGIN:
+name:CP20WRtAtoBadAcc_log_noMissing type:real
+code:CP20WRtAtoBadAcc_log_noMissing = replaceMissing(input.CP20WRtAtoBadAcc_log,-6.907755278982137).
+END
+VARIABLE BEGIN:
+name:CP20WRtCcBadAcc_log_noMissing type:real
+code:CP20WRtCcBadAcc_log_noMissing = replaceMissing(input.CP20WRtCcBadAcc_log,-6.907755278982137).
+END
+VARIABLE BEGIN:
+name:CP20WRtDolCcXbrBadTxn_log_noMissing type:real
+code:CP20WRtDolCcXbrBadTxn_log_noMissing = replaceMissing(input.CP20WRtDolCcXbrBadTxn_log,-6.907755278982137).
+END
+VARIABLE BEGIN:
+name:CP4WRtDolBadTxn_log_noMissing type:real
+code:CP4WRtDolBadTxn_log_noMissing = replaceMissing(input.CP4WRtDolBadTxn_log,-6.437751649736401).
+END
+VARIABLE BEGIN:
+name:ED20WRtCcBadAcc_log_noMissing type:real
+code:ED20WRtCcBadAcc_log_noMissing = replaceMissing(input.ED20WRtCcBadAcc_log,-6.571283042360924).
+END
+VARIABLE BEGIN:
+name:CB_NUM_RATE_noMissing type:real
+code:CB_NUM_RATE_noMissing = replaceMissing(input.CB_NUM_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:CB_AMT_RATE_noMissing type:real
+code:CB_AMT_RATE_noMissing = replaceMissing(input.CB_AMT_RATE,1.699546101118298E-4).
+END
+VARIABLE BEGIN:
+name:SELLER_TRAN_BR_CNT_CC_NEW_noMissing type:real
+code:SELLER_TRAN_BR_CNT_CC_NEW_noMissing = replaceMissing(input.SELLER_TRAN_BR_CNT_CC_NEW,0.0).
+END
+VARIABLE BEGIN:
+name:SELLER_TRAN_BR_AMT_CC_NEW_noMissing type:real
+code:SELLER_TRAN_BR_AMT_CC_NEW_noMissing = replaceMissing(input.SELLER_TRAN_BR_AMT_CC_NEW,0.0).
+END
+VARIABLE BEGIN:
+name:ASP3_AMT_CC_RATE_noMissing type:real
+code:ASP3_AMT_CC_RATE_noMissing = replaceMissing(input.ASP3_AMT_CC_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:XB_AMT_IND_RATE_noMissing type:real
+code:XB_AMT_IND_RATE_noMissing = replaceMissing(input.XB_AMT_IND_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:XB_AMT_CB_RATE_noMissing type:real
+code:XB_AMT_CB_RATE_noMissing = replaceMissing(input.XB_AMT_CB_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:ASP2_AMT_CB_RATE_noMissing type:real
+code:ASP2_AMT_CB_RATE_noMissing = replaceMissing(input.ASP2_AMT_CB_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:ASP3_CNT_CB_RATE_noMissing type:real
+code:ASP3_CNT_CB_RATE_noMissing = replaceMissing(input.ASP3_CNT_CB_RATE,0.0).
+END
+VARIABLE BEGIN:
+name:ISSUER_DENY_AMT_PCT_noMissing type:real
+code:ISSUER_DENY_AMT_PCT_noMissing = replaceMissing(input.ISSUER_DENY_AMT_PCT,0.016).
+END
+VARIABLE BEGIN:
+name:edomain_acct_acct_bad_rate_noMissing type:real
+code:edomain_acct_acct_bad_rate_noMissing = replaceMissing(input.edomain_acct_acct_bad_rate,0.0034227410259513474).
+END
+VARIABLE BEGIN:
+name:cc_bin_acct_acct_bad_rlog_noMissing type:real
+code:cc_bin_acct_acct_bad_rlog_noMissing = replaceMissing(input.cc_bin_acct_acct_bad_rlog,-5.8872641446659335).
+END
+VARIABLE BEGIN:
+name:seller_tran_amt_bad_rlog_noMissing type:real
+code:seller_tran_amt_bad_rlog_noMissing = replaceMissing(input.seller_tran_amt_bad_rlog,-5.327576967593975).
+END
+VARIABLE BEGIN:
+name:seller_acct_acct_bad_rlog_noMissing type:real
+code:seller_acct_acct_bad_rlog_noMissing = replaceMissing(input.seller_acct_acct_bad_rlog,-5.953585855917219).
+END
+VARIABLE BEGIN:
+name:seller_dec_decline_rlog_noMissing type:real
+code:seller_dec_decline_rlog_noMissing = replaceMissing(input.seller_dec_decline_rlog,-3.527607265986157).
+END
+VARIABLE BEGIN:
+name:edomain_tran_amt_bad_rlog_noMissing type:real
+code:edomain_tran_amt_bad_rlog_noMissing = replaceMissing(input.edomain_tran_amt_bad_rlog,-4.819657799090067).
+END
+VARIABLE BEGIN:
+name:edomain_acct_acct_bad_rlog_noMissing type:real
+code:edomain_acct_acct_bad_rlog_noMissing = replaceMissing(input.edomain_acct_acct_bad_rlog,-5.677313579336441).
+END
+VARIABLE BEGIN:
+name:edomain_dec_decline_rlog_noMissing type:real
+code:edomain_dec_decline_rlog_noMissing = replaceMissing(input.edomain_dec_decline_rlog,-2.989335359601796).
+END
+VARIABLE BEGIN:
+name:ccip_cntry_tran_bad_rlog_noMissing type:real
+code:ccip_cntry_tran_bad_rlog_noMissing = replaceMissing(input.ccip_cntry_tran_bad_rlog,-5.40639087001975).
+END
+VARIABLE BEGIN:
+name:fullname_mixcase_noMissing type:real
+code:fullname_mixcase_noMissing = replaceMissing(input.fullname_mixcase,1.0).
+END
+VARIABLE BEGIN:
+name:is_xb_noMissing type:real
+code:is_xb_noMissing = replaceMissing(input.is_xb,0.0).
+END
+VARIABLE BEGIN:
+name:s_de_area_code_match_noMissing type:real
+code:s_de_area_code_match_noMissing = replaceMissing(input.s_de_area_code_match,1.0).
+END
+VARIABLE BEGIN:
+name:s_has_used_ip3_noMissing type:real
+code:s_has_used_ip3_noMissing = replaceMissing(input.s_has_used_ip3,1.0).
+END
+VARIABLE BEGIN:
+name:s_last_name_mixcase_noMissing type:real
+code:s_last_name_mixcase_noMissing = replaceMissing(input.s_last_name_mixcase,1.0).
+END
+

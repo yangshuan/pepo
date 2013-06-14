@@ -1,0 +1,33 @@
+
+
+SCOR = 
++   (6.61741817    *Intercept                                  )
+-   (0.42810260    *ws_v_tx_ratio_num_s11                      )
+-   (0.58991081    *ws_rtrn_decay_180d_cnt_s11                 )
+-   (0.59321031    *woutamt_to_avg_cleard_s11                  )
+-   (0.77461979    *wacct_h_s_amt_dk_320_s11                   )
+-   (0.44234607    *ws_amt_dk_20_s11                           )
+-   (0.58461925    *wmin_to_s_dof_s11                          )
+-   (0.83008393    *wprtlamt_to_max_sent_30_s11                )
+-   (0.48301969    *wnum_logins_3_days_s11                     )
+-   (0.64647711    *wemail_MP_7d_UPI_dk_s11                    )
+-   (0.50052218    *wv36_login_exces_10m_s11                   )
+-   (0.49254342    *wseen_same_bankid_30d_90d_s11              )
+-   (0.68206455    *wmin_ebay_d_snc_c_all_AECD_s11             )
+-   (0.46251801    *wv2_beacon_lat_numeric_s11                 )
+-   (0.58780407    *webay_V_7d1Yr_ASP_360all_s11               )
+-   (0.51431047    *wCP4WRtDolBadTxn_s11                       )
+-   (0.42776372    *wcp_ratio_1w_appr_dol_s11                  )
+-   (1.04263868    *wn_bdrt_txn_s11                            )
+-   (0.72314283    *wmax_MOA_Life_s11                          )
+-   (0.74295941    *ws_trans_ip2_tof_t_v2_s11                  )
+-   (0.73885402    *wv3_account_age_sm_s11                     )
+-   (1.20692869    *ws_vid_min_dof_s11                         )
+-   (1.39834056    *ws_ach_faild_2nd_amt_s11                   )
+-   (0.50036827    *ws_cc_s_amt_dk_320_s11                     )
+-   (0.97637391    *wv35_ip_ph_geo_worst_s11                   )
+-   (1.14676356    *wnum_address_country_s11                   )
+-   (0.77943584    *wadded_ach_lt_1_s11                        )
+-   (1.59667401    *wv31_ip_hopping_strict_s11                 )
+    ;
+fp_aliged_score = int( 913.01587636 + ( -67.68883102 )*(SCOR));
