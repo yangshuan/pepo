@@ -22,7 +22,7 @@ public class SegLogicHandler implements ElementHandler {
 	public void onStart(ElementPath path) {
 		Element elt = path.getCurrent();
 		System.out.println(dir + "/" +elt.attribute("sasfile").getValue());
-		SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
+//		SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
 
 	}
 

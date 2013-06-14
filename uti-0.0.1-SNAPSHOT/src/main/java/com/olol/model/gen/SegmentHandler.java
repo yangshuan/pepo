@@ -28,7 +28,7 @@ public class SegmentHandler implements ElementHandler {
 		Element elt = path.getCurrent();
 		System.out.println(elt.attribute("sasfile"));
 		
-		SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
+//		SasParser.parse(dir + "/" +elt.attribute("sasfile").getValue());
 	}
 
 }
