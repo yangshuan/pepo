@@ -9,6 +9,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.olol.model.gen.handler.PmmlHandler;
+import com.olol.model.gen.handler.VariableLibraryHandler;
 
 public class ModelGen {
 
@@ -43,8 +44,9 @@ public class ModelGen {
 			// SegLogicHandler(dir));
 			// saxReader.addHandler("/model/segments", new
 			// SegmentsHandler(dir));
-			saxReader.addHandler("/PMML/NeuralNetwork", new PmmlHandler(
-					dir));
+
+			saxReader.addHandler("/PMML/NeuralNetwork", new PmmlHandler(dir));
+			saxReader.addHandler("/variableDict", new VariableLibraryHandler(dir));
 			saxReader.read(inputXml);
 
 		} catch (DocumentException e) {
@@ -57,7 +59,8 @@ public class ModelGen {
 		File folder = new File(args[0]);
 		if (folder.exists()) {
 			for (File f : folder.listFiles()) {
-				if (f.getName().endsWith(".pmml")) {
+				if (f.getName().endsWith(".pmml")
+						|| f.getName().endsWith(".var")) {
 					ModelGen gen = new ModelGen(f);
 					gen.setHandler(gen.getDocument());
 				}

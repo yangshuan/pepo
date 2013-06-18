@@ -67,7 +67,7 @@ public class PmmlHandler implements ElementHandler {
 				classnamest.setAttribute("NeuronList", nl.Neurons);
 				classnamest.setAttribute("NeuralLayer", nl);
 				
-				System.out.println(classnamest.toString());
+//				System.out.println(classnamest.toString());
 			}
 			
 			
