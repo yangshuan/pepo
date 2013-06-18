@@ -57,6 +57,8 @@ public class VariableLibraryHandler implements ElementHandler {
 					parseWoe = new SasParser(new FileInputStream(f));
 					parseWoe.translation_unit();
 					System.out.println(parseWoe.varaddsb.toString());
+					System.out.println(parseWoe.variables.toString());
+					classnamest.setAttribute("variables", parseWoe.variables);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,7 +69,7 @@ public class VariableLibraryHandler implements ElementHandler {
 		}
 		
 		
-//		System.out.println(classnamest.toString());
+		System.out.println(classnamest.toString());
 		
     } 
 		
