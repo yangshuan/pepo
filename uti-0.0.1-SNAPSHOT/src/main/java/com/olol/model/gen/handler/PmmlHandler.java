@@ -1,5 +1,7 @@
 package com.olol.model.gen.handler;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class PmmlHandler implements ElementHandler {
 
 	String dir;
 	String stFileDir = "src/main/resources/STFiles";
+	public List<String> pmmlNodes = new ArrayList<String>();
 	/**
 	 * @param dir
 	 */
@@ -26,9 +29,11 @@ public class PmmlHandler implements ElementHandler {
 	public void onEnd(ElementPath path) {
 		Element elt = path.getCurrent();
 		List<Element> nnproperties = (List<Element>) elt.elements();
+		String modelName = elt.attribute("modelName").getValue();
 		
 		StringTemplateGroup group = new StringTemplateGroup("group", stFileDir, DefaultTemplateLexer.class);
 		StringTemplate classnamest = group.getInstanceOf("Pmml");
+		classnamest.setAttribute("model", modelName);
 		
 		int layerCount = 0;
 		for (Element property : nnproperties) {
@@ -38,7 +43,11 @@ public class PmmlHandler implements ElementHandler {
 				StringBuilder nInputs = new StringBuilder();
 				for (Element input : inputslist) {
 					nInputs.append("neuralInputsList.add(\""+input.attribute("id").getValue()+"\");\n");
+					System.out.print("\""+input.attribute("id").getValue()+"\",");
+					pmmlNodes.add(input.attribute("id").getValue());
 				}
+				System.out.println();
+				
 				classnamest.setAttribute("neuralInputsList",nInputs);
 				
 			} else if (property.getName().equals("NeuralLayer")) {
@@ -67,17 +76,20 @@ public class PmmlHandler implements ElementHandler {
 				classnamest.setAttribute("NeuronList", nl.Neurons);
 				classnamest.setAttribute("NeuralLayer", nl);
 				
-//				System.out.println(classnamest.toString());
+//				
 			}
 			
 			
-//			System.out.println(property.getName());
 		}
-		
-		
-		
-		
-		 
+		try {
+			String filename = elt.attribute("modelName").getValue() + ".java";
+			FileOutputStream out = new FileOutputStream(new File(dir + "/" + filename));
+			out.write(classnamest.toString().getBytes());
+			System.out.println("File " + filename + " created.");
+			out.close();
+		} catch (Exception e) {
+			System.err.println("File write error");
+		}		 
 		
     } 
 		

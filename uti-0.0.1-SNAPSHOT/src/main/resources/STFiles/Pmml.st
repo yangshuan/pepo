@@ -8,18 +8,18 @@ import com.paypal.risk.idi.models.nn.NeuralNetwork;
 import com.paypal.risk.idi.models.nn.Neuron;
 import com.paypal.risk.idi.models.nn.PMML;
 
-public class $classname$ extends extends PMML{
+public class $model$ extends PMML{
   
-  private static $classname$ instance = null;
+  private static $model$ instance = null;
   
   public synchronized static PMML getPmml() {
     if (instance == null) {
-      instance = new $classname$();
+      instance = new $model$();
     }
     return instance;
   }
   
-  private $classname$() {
+  private $model$() {
     this.setNeuralNetwork(this.buildNeuralNetwork());
   }
   
@@ -45,12 +45,9 @@ public class $classname$ extends extends PMML{
   private NeuralLayer buildNeuralLayer$it.index$() {
     NeuralLayer nl = new NeuralLayer();
  	nl.setActivationFunction("$it.ActivationFunction$");
- 	nl.setNumberOfNeurons("$it.NumberOfNeurons$");
+ 	nl.setNumberOfNeurons($it.NumberOfNeurons$);
  	
  	$it.Neurons$
-    nl.setActivationFunction("logistic");
-    nl.setNumberOfNeurons(1);
-    nl.addNeuron(buildNeuronL2N21());
     return nl;
   }
   }$

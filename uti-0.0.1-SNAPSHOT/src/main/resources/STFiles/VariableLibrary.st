@@ -27,23 +27,27 @@ public class $model$VariableLibrary implements ATONNVariableLibrary{
   }
   
   private void buildZScaleDoubleVariables(Map<String,Object> context) {
-    $VarList:{context.put("$it.output$", normalizeVariableReplaceByMean(context.get($it.name$.getName()),$it.params$));
+    $VarList:{context.put("$it.output$", normalizeVariableReplaceByMean(context.get($it.name$),$it.params$));
     }$
   }
 
   private void buildWoeStringVariables(Map<String,Object> context) throws Exception {
-    $variables:{context.put($it$.getName() + "_woe", getWoeValue($it$.getName(),context,get($it$.getName())));
+    $variables.keys:{k | context.put("$k$", getWoeValue($variables.(k)$.getName(),context.get($variables.(k)$.getName())));
     }$
   }
 
 
 
   private double getWoeValue(String varName, Object value) {
+  
+    double valueDouble = 0;
     if (value instanceof NullValue) {
       value = null;
-    }
-    
+    }else if (value instanceof Number)
+      valueDouble = ((Number)value).doubleValue();
     double woeValue = 0;
+    
+    $woe$
     
     return woeValue;
   }

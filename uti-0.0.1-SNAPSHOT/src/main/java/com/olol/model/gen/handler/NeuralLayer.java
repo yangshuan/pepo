@@ -1,6 +1,5 @@
 package com.olol.model.gen.handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NeuralLayer {

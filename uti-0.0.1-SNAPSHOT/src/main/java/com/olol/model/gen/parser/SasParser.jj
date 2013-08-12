@@ -16,6 +16,7 @@ import org.springframework.core.io.ClassPathResource;public class SasParser{
   public static List<String> variables = new ArrayList<String>();
   public HashMap<String, String> varMap = new HashMap<String, String>();
   public HashMap<String, String> woeMap = new HashMap<String, String>();
+  public HashMap<String, String> typeMap = new HashMap<String, String>();
   public static String name;
   public StringBuilder coeffmapsb = new StringBuilder();
   public StringBuilder varaddsb = new StringBuilder();
@@ -26,6 +27,8 @@ import org.springframework.core.io.ClassPathResource;public class SasParser{
     String varName;
     String woeName;
     String statement;
+    String type;
+    Boolean isMissHandler;
   }
 
   public static String charTrim(String str)
@@ -89,16 +92,19 @@ void external_declaration() :
   String str = null;
   IfStatement ifstatement = new IfStatement();}
 {    (  (      ifstatement = if_statement()
+      
   {        sb.append(ifstatement.statement + "\n");
   }
   (
-     str = elseif_statement()
+     str = elseif_statement(ifstatement)
      {       sb.append(str + "\n");     }
   ) *
-  (       str = else_statement()
- )?
+  (       str = else_statement(ifstatement)
+ )
   {
        sb.append(str);
+       if (!ifstatement.isMissHandler) sb.insert(0,ifstatement.statement+"\n");
+       typeMap.put(ifstatement.varName,ifstatement.type);
   }
   (    label_statement()
   )*
@@ -109,12 +115,12 @@ void external_declaration() :
   {    count++;
     variables.add(ifstatement.varName);
     if (count == 1)
-      varaddsb.append("if(" + ifstatement.varName + ".getName().equals(varName)){");
+      varaddsb.append("if(" + ifstatement.varName + ".getName().equals(varName)){\n");
     else
-      varaddsb.append("else if(" + ifstatement.varName + ".getName().equals(varName)){");
+      varaddsb.append("else if(" + ifstatement.varName + ".getName().equals(varName)){\n");
     varaddsb.append(sb);
 	
-    varaddsb.append("}");
+    varaddsb.append("\n}");
   }}
 
 IfStatement if_statement() :
@@ -132,26 +138,34 @@ IfStatement if_statement() :
 {
   
   < IF >
+ (  (     
   str = var_indentifier()
   {
-    varname = str +"_result";	sb.append("if ");
+    varname = str +"_result";	
 	ifstatement.varName = str;
 	getsegmentvarsb.append("Integer " + str +"_result = Contexts.execute(ctxt, " + str + ", null);\n" );
   }
   ( 
     "="  (
-          t = <CHARACTER_LITERAL>
+          (          { sb.append("else if "); ifstatement.isMissHandler = false;}                    t = <CHARACTER_LITERAL>
 //          { sb.append("(value.equals(\""+charTrim(t.toString()).trim()+"\"))"); }
-          { sb.append("(Arrays.asList(\""+charTrim(t.toString())+"\").contains(value))"); }
+          { sb.append("(Arrays.asList(\""+charTrim(t.toString()).trim()+"\").contains(value))"); }
+        )
          | t = "."
-          { sb.append("(value == null)"); }
-         | t = < INTEGER_LITERAL >
-          { getsegmentlogicsb.append("if (" + varname + "==" + t); }
+          { sb.append("if (value == null)"); ifstatement.isMissHandler = true;}
+         |  { sb.append("else if (valueDouble == "); }        
+         ("-" { sb.append("-"); } )?  t = < INTEGER_LITERAL > 
+          { getsegmentlogicsb.append("else if (" + varname + "==" + t);
+			sb.append(t + ")");
+            ifstatement.isMissHandler = false;}
+        | { sb.append("else if (valueDouble == "); }
+        ("-" { sb.append("-"); } )? t = < FLOATING_POINT_LITERAL >
+          { sb.append(t + ")"); ifstatement.isMissHandler = false;}
+          
          )
-  | str = stringvalue_desc()
+  | str = stringvalue_desc(ifstatement)
     {
-      sb.append("(" + str +")");
-	
+      sb.append("else if (" + str +")"); ifstatement.isMissHandler = false;
     }
   )
   (    < OR >
@@ -169,6 +183,29 @@ IfStatement if_statement() :
       getsegmentlogicsb.append("return new SessionSegment2(); \n}");       varMap.put("getsegment", getsegmentvarsb.toString()+ getsegmentlogicsb.toString());
     }
   )*
+)
+|	(
+	  { sb.append("else if ("); }
+	  (< MINUS >)?  { sb.append("-"); }
+	  (
+	    t = < FLOATING_POINT_LITERAL >
+	  | t = < INTEGER_LITERAL >
+	  )
+	  < LESSTHAN >
+	  str = var_indentifier(){ ifstatement.varName = str; }
+	  < LESSTHANOREQUALTO >
+	  { sb.append( t.toString().trim() + " < valueDouble && valueDouble <= "); }
+	  (< MINUS >)? { sb.append("-"); }
+	  (	    t = < FLOATING_POINT_LITERAL >
+	  | t = < INTEGER_LITERAL >
+	  )
+	  { if(Double.valueOf(t.toString()) >= 2147483648D)sb.append(t.toString().trim() + "D)");
+	    else  sb.append(t.toString().trim() + ")");}	)  {	ifstatement.isMissHandler = false;  }
+)
+
+{
+  	varname = str +"_result";
+//	ifstatement.varName = str;}
 
   
   "then" str = var_indentifier() "="
@@ -243,7 +280,7 @@ t = < FLOATING_POINT_LITERAL >
     else coeffmapsb.append("coeffMap.put("+woeMap.get(var)+".getName()," + sign.toString() + t.toString() + ");\n");
     return null;  }}
 
-String elseif_statement() :
+String elseif_statement(IfStatement ifstatement) :
 {
   StringBuilder sb = new StringBuilder();
   String str;
@@ -253,46 +290,46 @@ String elseif_statement() :
   < ELSE > < IF >
   { sb.append("else if "); }
   (
-      str = var_indentifier()
+      str = var_indentifier() { ifstatement.varName=str; }
 	  (
-	    str = digitvalue_desc()
-	    { sb.append("(" + str +")"); }
-	  | str = stringvalue_desc()
-	  { sb.append("(" + str +")"); }
+	    str = digitvalue_desc() { sb.append("(" + str +")"); ifstatement.type="numeric";}
+	  | str = stringvalue_desc(ifstatement) { sb.append("(" + str +")"); }	
 	  )
-| < LPARENTHESIS >
+| (< LPARENTHESIS >)?
    str = digitvalue_desc()
-  < RPARENTHESIS >
-  { sb.append("(" + str +")"); }
+  (< RPARENTHESIS >)?
+  { sb.append("(" + str +")");ifstatement.type="numeric";}
   
   )
   "then" str = var_indentifier() "="
   { sb.append(" woeValue = "); }
   ( "-" { sb.append("-"); })?
   t = <FLOATING_POINT_LITERAL>
-  { sb.append(t.toString()); }
+  { sb.append(t.toString()); } 
   ";"
   { sb.append(";"); }
 {  return sb.toString();
 }
 }
 
-String else_statement() :
+String else_statement(IfStatement ifstatement) :
 {
   String str;
   Token t;
   StringBuilder sb = new StringBuilder();
+  String value = "";
 }
 {
   < ELSE > str = var_indentifier()  "="
   { sb.append("else woeValue = "); }
-  ( "-" { sb.append("-"); })?
+  ( "-" { sb.append("-"); value = "-";})?
   ( t = <FLOATING_POINT_LITERAL>
   | t = < INTEGER_LITERAL > )
-  { sb.append(t.toString()); }
+  { sb.append(t.toString()); value += t.toString();}
   ";"
   { sb.append(";"); }
   {
+  ifstatement.statement = "if (value==null) woeValue = " + value + ";";
   return sb.toString();
   }
 }
@@ -320,9 +357,19 @@ String digitvalue_desc() :
   Token t;}{
 (   "=" "."
    { sb.append(" = . "); }
-|  str = var_indentifier()
+| str = var_indentifier()
    < GREATERTHAN >
  { sb.append(" valueDouble > "); }
+  ("-" { sb.append("-"); } )?
+  (
+    t = < INTEGER_LITERAL >
+  { sb.append(t.toString()); }
+  | t = < FLOATING_POINT_LITERAL >
+  { sb.append(t.toString()); }
+  )
+| str = var_indentifier()
+   "="
+ { sb.append(" valueDouble == "); }
   ("-" { sb.append("-"); } )?
   (
     t = < INTEGER_LITERAL >
@@ -343,7 +390,8 @@ String digitvalue_desc() :
      { sb.append(" valueDouble <= "); }
     ("-" { sb.append("-"); })?
     ( t = < INTEGER_LITERAL >
-    { sb.append(t.toString()); }
+    { if(Double.valueOf(t.toString()) >= 2147483648D)sb.append(t.toString().trim() + "D");
+	  else  sb.append(t.toString().trim() + ""); }
     | t = < FLOATING_POINT_LITERAL >
     { sb.append(t.toString()); }
     ))
@@ -351,7 +399,7 @@ String digitvalue_desc() :
   { return sb.toString(); }
 }
 
-String stringvalue_desc() :
+String stringvalue_desc(IfStatement ifstatement) :
 {
   StringBuilder sb = new StringBuilder();
   Token t;
@@ -360,17 +408,22 @@ String stringvalue_desc() :
   (
   "=" t = <CHARACTER_LITERAL>
 //  { sb.append(" (value.equals("+"\"" + charTrim(t.toString()).trim() + "\""+")) "); }
-{ sb.append(" Arrays.asList("+"\"" + charTrim(t.toString()) + "\""+").contains(value) "); }
+{ifstatement.type="string"; sb.append(" Arrays.asList("+"\"" + charTrim(t.toString()).trim() + "\""+").contains(value) "); }
   | < IN > < LPARENTHESIS >
-  { sb.append("Arrays.asList( "); }
-   (     t = <CHARACTER_LITERAL>
-   | t = < STRING_LITERAL >
+  {sb.append("Arrays.asList( "); }
+   (     t = < CHARACTER_LITERAL > {sb.append("\"" + charTrim(t.toString()).trim() + "\""); ifstatement.type="string";}
+   | t = < STRING_LITERAL > { sb.append("\"" + charTrim(t.toString()).trim() + "\""); ifstatement.type="string";}
+   | t = < FLOATING_POINT_LITERAL > { sb.append( t.toString().trim()); ifstatement.type="numeric";}
+   | t = < INTEGER_LITERAL > { sb.append(t.toString().trim()); ifstatement.type="numeric";}
+   | t = "." { sb.append("null"); }
    )
-  { sb.append("\"" + charTrim(t.toString()).trim() + "\""); }
    ( ","
-     { sb.append(","); }
-     ( t = <CHARACTER_LITERAL> { sb.append("\"" + charTrim(t.toString()) + "\""); }
-     | t = < STRING_LITERAL > { sb.append("\"" + charTrim(t.toString()) + "\""); } ) )*
+   {sb.append(",");}
+     ( t = <CHARACTER_LITERAL> { sb.append("\"" + charTrim(t.toString()).trim() + "\""); ifstatement.type="string";}
+     | t = < STRING_LITERAL > { sb.append("\"" + charTrim(t.toString()).trim() + "\""); ifstatement.type="string";}  
+	 | ("-" { sb.append("-");})?  t = < FLOATING_POINT_LITERAL > { sb.append(t.toString().trim()); ifstatement.type="numeric";}
+     | ("-" { sb.append("-");})?  t = < INTEGER_LITERAL > { sb.append(t.toString().trim()); ifstatement.type="numeric";}
+     ) )*
      < RPARENTHESIS >
   	 { sb.append(")" + ".contains(value) "); }
  )
